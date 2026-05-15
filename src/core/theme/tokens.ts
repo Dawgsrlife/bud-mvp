@@ -1,48 +1,18 @@
-/**
- * Design tokens - the single source of truth for color, type, spacing, radii, motion.
- * No hardcoded hex or px values anywhere else in the codebase.
- *
- * See docs/adr/0003-design-system-and-animation.md for the contract.
- */
+// Design tokens - the single source of truth for color, type, spacing, radii, motion.
+// No hardcoded hex or px values anywhere else in the codebase.
+//
+// To swap brand variants for live comparison, change the import on the next line:
+//   v1-emerald            (default, Yuka-adjacent safety green)
+//   v2-toronto-deep       (calmer evergreen, more clinical)
+//   v3-phantom-mono       (monochrome + warm amber accent, max restraint)
+//   v4-wealthsimple-cream (cream + deep plum, premium understated)
+//
+// See docs/adr/0003-design-system-and-animation.md and docs/design/brand-book-v1.md.
+
+import { colorVariant } from './tokens-variants/v1-emerald';
 
 export const tokens = {
-  color: {
-    // Neutrals (off-white to near-black)
-    bg: '#FAFAFA',
-    surface: '#FFFFFF',
-    ink: '#0A0A0A',
-    inkSoft: '#3A3A3A',
-    inkMuted: '#6E6E6E',
-    line: '#E5E5E5',
-
-    // Brand - BUD green. Signals safety + health.
-    brand: {
-      50: '#F0F9F4',
-      100: '#DCF1E6',
-      200: '#B8E3CC',
-      300: '#8FD2AC',
-      400: '#5DBC85',
-      500: '#1FAB5C',
-      600: '#168A4A',
-      700: '#106A39',
-      800: '#0B4A28',
-      900: '#062D18',
-    },
-
-    // Accent - used ONLY for danger/avoid states. Never decorative.
-    accent: {
-      500: '#FF6B6B',
-      600: '#E54545',
-    },
-
-    // Status
-    status: {
-      ok: '#1FAB5C',
-      warn: '#F59E0B',
-      danger: '#DC2626',
-      info: '#3B82F6',
-    },
-  } as const,
+  color: colorVariant,
 
   type: {
     family: 'Inter',
