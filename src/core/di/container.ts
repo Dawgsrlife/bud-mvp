@@ -39,6 +39,10 @@ import { ReportRepositoryImpl } from '../../features/reports/data/repositories/r
 import { SubmitReportUseCase } from '../../features/reports/domain/usecases/submit-report-usecase';
 import type { ReportRepository } from '../../features/reports/domain/repositories/report-repository';
 
+import { RealtimeDataSource } from '../../features/consensus/data/datasources/realtime-datasource';
+import { ConsensusRepositoryImpl } from '../../features/consensus/data/repositories/consensus-repository-impl';
+import type { ConsensusRepository } from '../../features/consensus/domain/repositories/consensus-repository';
+
 // ---------- Profile feature ----------
 const profileStorageDataSource = new ProfileStorageDataSource();
 const profileRepository: ProfileRepository = new ProfileRepositoryImpl(profileStorageDataSource);
@@ -71,6 +75,10 @@ const shareRepository: ShareRepository = new ShareRepositoryImpl(
 const reportDataSource = new ReportDataSource();
 const reportRepository: ReportRepository = new ReportRepositoryImpl(reportDataSource);
 
+// ---------- Consensus / Realtime feature ----------
+const realtimeDataSource = new RealtimeDataSource();
+const consensusRepository: ConsensusRepository = new ConsensusRepositoryImpl(realtimeDataSource);
+
 // ---------- Public surface ----------
 export const container = {
   loadProfileUseCase: (): LoadProfileUseCase => new LoadProfileUseCase(profileRepository),
@@ -79,4 +87,5 @@ export const container = {
   shareVerdictCardUseCase: (): ShareVerdictCardUseCase =>
     new ShareVerdictCardUseCase(shareRepository),
   submitReportUseCase: (): SubmitReportUseCase => new SubmitReportUseCase(reportRepository),
+  consensusRepository: (): ConsensusRepository => consensusRepository,
 };

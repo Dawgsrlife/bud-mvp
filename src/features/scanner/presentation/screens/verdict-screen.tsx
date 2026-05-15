@@ -16,6 +16,8 @@ import { VerdictShareCard } from '../../../share/presentation/widgets/verdict-sh
 import { useShareViewModel } from '../../../share/presentation/viewmodels/use-share-viewmodel';
 import type { ShareableVerdict } from '../../../share/domain/entities/shareable-verdict';
 import { ReportSheet } from '../../../reports/presentation/widgets/report-sheet';
+import { ConsensusToast } from '../../../consensus/presentation/widgets/consensus-toast';
+import { useConsensusWatch } from '../../../consensus/presentation/viewmodels/use-consensus-watch';
 import type { Verdict, VerdictKind } from '../../domain/entities/verdict';
 
 interface VerdictScreenProps {
@@ -68,6 +70,9 @@ export function VerdictScreen({
   const shareCardRef = useRef<View>(null);
   const { status: shareStatus, share } = useShareViewModel();
   const [reportOpen, setReportOpen] = useState(false);
+  const watchIds = productId ? [productId] : [];
+  const { latest: consensusEvent } = useConsensusWatch(watchIds);
+  const [consensusDismissed, setConsensusDismissed] = useState(false);
 
   const handleShare = async () => {
     const node = shareCardRef.current;
@@ -159,6 +164,11 @@ export function VerdictScreen({
         visible={reportOpen}
         productId={productId}
         onClose={() => setReportOpen(false)}
+      />
+
+      <ConsensusToast
+        event={consensusDismissed ? null : consensusEvent}
+        onDismiss={() => setConsensusDismissed(true)}
       />
 
       {/* Offscreen capture target. Pointer-events: none + opacity: 0 keeps it

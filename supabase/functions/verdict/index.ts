@@ -60,6 +60,45 @@ Output schema:
   "mayContainAllergensCanonical": ["Tree nuts", "..."]
 }`;
 
+/**
+ * Safely extract a Verdict JSON object from an LLM response.
+ * LLMs sometimes wrap JSON in markdown fences, prepend prose, or truncate
+ * mid-string. Strip fences, find the largest valid {...} block, and try-parse.
+ */
+function parseVerdictResponse(raw: string, modelTag: string): Verdict {
+  // Strip ```json ... ``` or ``` ... ``` fences
+  let text = raw.trim();
+  const fenced = text.match(/^```(?:json)?\s*([\s\S]+?)\s*```$/);
+  if (fenced) text = fenced[1].trim();
+
+  // Find the first { and last } and try-parse the substring
+  const first = text.indexOf('{');
+  const last = text.lastIndexOf('}');
+  if (first === -1 || last === -1 || last <= first) {
+    throw new Error(`${modelTag} returned no JSON object: ${text.slice(0, 200)}`);
+  }
+
+  const candidate = text.slice(first, last + 1);
+  try {
+    const parsed = JSON.parse(candidate);
+    // Minimal shape check so a malformed-but-parseable response doesn't
+    // crash downstream consumers expecting these fields.
+    if (
+      typeof parsed.kind !== 'string' ||
+      !['compatible', 'avoid', 'caution', 'unknown'].includes(parsed.kind) ||
+      typeof parsed.reason !== 'string' ||
+      typeof parsed.normalizedProductName !== 'string'
+    ) {
+      throw new Error(`${modelTag} JSON missing required fields`);
+    }
+    return parsed as Verdict;
+  } catch (e) {
+    throw new Error(
+      `${modelTag} JSON parse failed (${(e as Error).message}). Raw: ${candidate.slice(0, 300)}`,
+    );
+  }
+}
+
 async function callClaude(
   ocrText: string,
   profileAllergens: string[],
@@ -85,7 +124,7 @@ Produce the JSON verdict.`;
     },
     body: JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
-      max_tokens: 600,
+      max_tokens: 1024,
       system: [
         {
           type: 'text',
@@ -103,7 +142,7 @@ Produce the JSON verdict.`;
 
   const json = await resp.json();
   const text = json.content?.[0]?.text ?? '';
-  return JSON.parse(text);
+  return parseVerdictResponse(text, 'claude-haiku-4-5');
 }
 
 async function callGemini(
@@ -132,7 +171,33 @@ Produce the JSON verdict.`;
         contents: [{ parts: [{ text: userPrompt }] }],
         generationConfig: {
           responseMimeType: 'application/json',
-          maxOutputTokens: 600,
+          maxOutputTokens: 1024,
+          temperature: 0.1,
+          responseSchema: {
+            type: 'object',
+            required: [
+              'kind',
+              'reason',
+              'triggeredAllergens',
+              'mayContainAllergens',
+              'confidence',
+              'normalizedProductName',
+              'displayName',
+              'containsAllergensCanonical',
+              'mayContainAllergensCanonical',
+            ],
+            properties: {
+              kind: { type: 'string', enum: ['compatible', 'avoid', 'caution', 'unknown'] },
+              reason: { type: 'string' },
+              triggeredAllergens: { type: 'array', items: { type: 'string' } },
+              mayContainAllergens: { type: 'array', items: { type: 'string' } },
+              confidence: { type: 'number' },
+              normalizedProductName: { type: 'string' },
+              displayName: { type: 'string' },
+              containsAllergensCanonical: { type: 'array', items: { type: 'string' } },
+              mayContainAllergensCanonical: { type: 'array', items: { type: 'string' } },
+            },
+          },
         },
       }),
     },
@@ -144,7 +209,7 @@ Produce the JSON verdict.`;
 
   const json = await resp.json();
   const text = json.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
-  return JSON.parse(text);
+  return parseVerdictResponse(text, 'gemini-2.5-flash');
 }
 
 serve(async (req) => {
@@ -265,6 +330,19 @@ serve(async (req) => {
       },
     );
   } catch (e) {
-    return Response.json({ error: String(e) }, { status: 500 });
+    // Distinguish upstream-LLM failures from real server bugs.
+    const msg = e instanceof Error ? e.message : String(e);
+    const isLlmIssue =
+      msg.includes('JSON parse failed') ||
+      msg.includes('no JSON object') ||
+      msg.includes('missing required fields') ||
+      msg.includes('API error');
+    return Response.json(
+      { error: msg, kind: isLlmIssue ? 'upstream_llm' : 'server' },
+      {
+        status: isLlmIssue ? 502 : 500,
+        headers: { 'access-control-allow-origin': '*' },
+      },
+    );
   }
 });
