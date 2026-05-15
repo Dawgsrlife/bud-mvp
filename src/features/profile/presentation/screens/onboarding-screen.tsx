@@ -25,8 +25,8 @@ export function OnboardingScreen({ onDone }: OnboardingScreenProps) {
     <View style={styles.container}>
       <Animated.View
         key={vm.step}
-        entering={FadeIn.duration(250)}
-        exiting={FadeOut.duration(150)}
+        entering={FadeIn.duration(280)}
+        exiting={FadeOut.duration(160)}
         layout={Layout.springify()}
         style={styles.stepWrap}
       >
@@ -59,18 +59,20 @@ export function OnboardingScreen({ onDone }: OnboardingScreenProps) {
 function WelcomeStep({ onNext }: { onNext: () => void }) {
   return (
     <View style={styles.step}>
-      <View style={styles.heroBlock}>
-        <BuddyMascot size={160} mood="idle" />
+      <View style={styles.welcomeHero}>
+        <BuddyMascot size={140} mood="idle" />
+        <View style={styles.welcomeText}>
+          <Text style={[styles.eyebrow, styles.center]}>BUD</Text>
+          <Text style={[styles.headline, styles.center]}>Hi. I'm Bud.</Text>
+          <Text style={[styles.subhead, styles.center]}>
+            Point your phone at a grocery product. I'll tell you if it's safe for you.
+          </Text>
+        </View>
       </View>
-      <Text style={styles.eyebrow}>BUD</Text>
-      <Text style={styles.headline}>Hi. I'm Bud.</Text>
-      <Text style={styles.subhead}>
-        Point your phone at a grocery product. I'll tell you if it's safe for you.
-      </Text>
-      <Text style={styles.body}>
-        First, let me know what to watch out for.
-      </Text>
-      <View style={styles.footer}>
+      <View style={styles.welcomeFoot}>
+        <Text style={[styles.bodyMuted, styles.center]}>
+          First, let me know what to watch out for.
+        </Text>
         <Button label="Let's start" onPress={onNext} fullWidth size="lg" />
       </View>
     </View>
@@ -90,12 +92,18 @@ function AllergenStep({
 }) {
   return (
     <View style={styles.step}>
-      <Text style={styles.eyebrow}>STEP 1 OF 2</Text>
-      <Text style={styles.headline}>What should I watch for?</Text>
-      <Text style={styles.subhead}>
-        Tap any allergens or restrictions that apply. You can change these any time.
-      </Text>
-      <ScrollView contentContainerStyle={styles.chipGrid} showsVerticalScrollIndicator={false}>
+      <View style={styles.header}>
+        <Text style={styles.eyebrow}>STEP 1 OF 2</Text>
+        <Text style={styles.headline}>What should I watch for?</Text>
+        <Text style={styles.subhead}>
+          Tap any allergens that apply. You can change these any time.
+        </Text>
+      </View>
+
+      <ScrollView
+        contentContainerStyle={styles.chipGrid}
+        showsVerticalScrollIndicator={false}
+      >
         {BIG_NINE_ALLERGENS.map((allergen) => (
           <AllergenChip
             key={allergen}
@@ -105,14 +113,17 @@ function AllergenStep({
           />
         ))}
       </ScrollView>
+
       <View style={styles.footer}>
         <Button label="Back" onPress={onBack} variant="ghost" size="md" />
-        <Button
-          label={selected.size === 0 ? 'Skip for now' : `Continue (${selected.size})`}
-          onPress={onNext}
-          fullWidth
-          size="lg"
-        />
+        <View style={styles.footerSpacer}>
+          <Button
+            label={selected.size === 0 ? 'Skip for now' : `Continue (${selected.size})`}
+            onPress={onNext}
+            fullWidth
+            size="lg"
+          />
+        </View>
       </View>
     </View>
   );
@@ -134,35 +145,46 @@ function ConfirmStep({
   const selectedList = [...selected];
   return (
     <View style={styles.step}>
-      <View style={styles.heroBlock}>
-        <BuddyMascot size={120} mood="happy" />
+      <View style={styles.confirmHero}>
+        <BuddyMascot size={110} mood="happy" />
       </View>
-      <Text style={styles.eyebrow}>STEP 2 OF 2</Text>
-      <Text style={styles.headline}>Got it.</Text>
-      <Text style={styles.subhead}>
-        {selectedList.length === 0
-          ? "You haven't flagged anything yet. That's fine. Add allergens any time."
-          : `I'll watch for these in every product you scan:`}
-      </Text>
+      <View style={styles.header}>
+        <Text style={[styles.eyebrow, styles.center]}>STEP 2 OF 2</Text>
+        <Text style={[styles.headline, styles.center]}>Got it.</Text>
+        <Text style={[styles.subhead, styles.center]}>
+          {selectedList.length === 0
+            ? "You haven't flagged anything yet. That's fine. Add allergens any time."
+            : `I'll watch for these in every product you scan.`}
+        </Text>
+      </View>
+
       {selectedList.length > 0 && (
-        <View style={styles.summary}>
+        <ScrollView
+          contentContainerStyle={styles.summaryList}
+          showsVerticalScrollIndicator={false}
+        >
           {selectedList.map((a) => (
-            <Text key={a} style={styles.summaryItem}>
-              .  {a}
-            </Text>
+            <View key={a} style={styles.summaryRow}>
+              <View style={styles.summaryDot} />
+              <Text style={styles.summaryItem}>{a}</Text>
+            </View>
           ))}
-        </View>
+        </ScrollView>
       )}
+
       {error && <Text style={styles.error}>{error}</Text>}
+
       <View style={styles.footer}>
         <Button label="Edit" onPress={onBack} variant="ghost" size="md" />
-        <Button
-          label={isSaving ? 'Saving.' : 'Start scanning'}
-          onPress={onConfirm}
-          disabled={isSaving}
-          fullWidth
-          size="lg"
-        />
+        <View style={styles.footerSpacer}>
+          <Button
+            label={isSaving ? 'Saving...' : 'Start scanning'}
+            onPress={onConfirm}
+            disabled={isSaving}
+            fullWidth
+            size="lg"
+          />
+        </View>
       </View>
     </View>
   );
@@ -179,19 +201,41 @@ const styles = StyleSheet.create({
   step: {
     flex: 1,
     paddingHorizontal: tokens.space[5],
-    paddingTop: tokens.space[6],
+    paddingTop: tokens.space[5],
     paddingBottom: tokens.space[5],
-    gap: tokens.space[3],
   },
-  heroBlock: {
+  welcomeHero: {
+    flex: 1,
     alignItems: 'center',
-    paddingVertical: tokens.space[5],
+    justifyContent: 'center',
+    gap: tokens.space[5],
+  },
+  welcomeText: {
+    alignItems: 'center',
+    gap: tokens.space[2],
+    maxWidth: 320,
+  },
+  welcomeFoot: {
+    gap: tokens.space[4],
+    paddingTop: tokens.space[4],
+  },
+  confirmHero: {
+    alignItems: 'center',
+    paddingTop: tokens.space[2],
+    paddingBottom: tokens.space[4],
+  },
+  header: {
+    gap: tokens.space[2],
+    paddingBottom: tokens.space[3],
+  },
+  center: {
+    textAlign: 'center',
   },
   eyebrow: {
     fontSize: tokens.type.sizes.sm,
     fontWeight: tokens.type.weights.medium,
     color: tokens.color.brand[600],
-    letterSpacing: 1,
+    letterSpacing: 1.2,
     textTransform: 'uppercase',
     fontFamily: tokens.type.family,
   },
@@ -210,7 +254,7 @@ const styles = StyleSheet.create({
     lineHeight: tokens.type.sizes.lg * tokens.type.lineHeight.normal,
     fontFamily: tokens.type.family,
   },
-  body: {
+  bodyMuted: {
     fontSize: tokens.type.sizes.base,
     fontWeight: tokens.type.weights.regular,
     color: tokens.color.inkMuted,
@@ -221,14 +265,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: tokens.space[2],
-    paddingVertical: tokens.space[4],
-  },
-  summary: {
     paddingVertical: tokens.space[3],
-    gap: tokens.space[1],
+  },
+  summaryList: {
+    gap: tokens.space[2],
+    paddingVertical: tokens.space[2],
+  },
+  summaryRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: tokens.space[3],
+    paddingVertical: tokens.space[2],
+    paddingHorizontal: tokens.space[4],
+    borderRadius: tokens.radius.md,
+    backgroundColor: tokens.color.surface,
+    borderWidth: 1,
+    borderColor: tokens.color.line,
+  },
+  summaryDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: tokens.color.brand[500],
   },
   summaryItem: {
-    fontSize: tokens.type.sizes.lg,
+    fontSize: tokens.type.sizes.base,
     color: tokens.color.ink,
     fontWeight: tokens.type.weights.medium,
     fontFamily: tokens.type.family,
@@ -237,12 +298,16 @@ const styles = StyleSheet.create({
     color: tokens.color.status.danger,
     fontSize: tokens.type.sizes.sm,
     paddingTop: tokens.space[2],
+    textAlign: 'center',
     fontFamily: tokens.type.family,
   },
   footer: {
-    marginTop: 'auto',
+    marginTop: tokens.space[3],
     flexDirection: 'row',
-    gap: tokens.space[3],
+    gap: tokens.space[2],
     alignItems: 'center',
+  },
+  footerSpacer: {
+    flex: 1,
   },
 });

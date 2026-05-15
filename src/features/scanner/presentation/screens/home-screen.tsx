@@ -13,24 +13,21 @@ interface HomeScreenProps {
 export function HomeScreen({ allergenCount, onResetProfile }: HomeScreenProps) {
   return (
     <View style={styles.container}>
-      <View style={styles.heroBlock}>
-        <BuddyMascot size={120} mood="idle" />
+      <View style={styles.hero}>
+        <BuddyMascot size={130} mood="idle" />
+        <View style={styles.text}>
+          <Text style={[styles.eyebrow, styles.center]}>BUD</Text>
+          <Text style={[styles.headline, styles.center]}>Ready to scan.</Text>
+          <Text style={[styles.subhead, styles.center]}>
+            {allergenCount === 0
+              ? "I'm not watching for anything yet. Add allergens to your profile."
+              : `Watching for ${allergenCount} ${allergenCount === 1 ? 'allergen' : 'allergens'}.`}
+          </Text>
+        </View>
       </View>
-      <Text style={styles.eyebrow}>BUD</Text>
-      <Text style={styles.headline}>Ready to scan.</Text>
-      <Text style={styles.subhead}>
-        {allergenCount === 0
-          ? "I'm not watching for anything yet. Tap below to set up your profile."
-          : `Watching for ${allergenCount} allergen${allergenCount === 1 ? '' : 's'}.`}
-      </Text>
+
       <View style={styles.footer}>
-        <Button
-          label="Camera coming next"
-          onPress={() => {}}
-          disabled
-          fullWidth
-          size="lg"
-        />
+        <Button label="Camera coming next" onPress={() => {}} disabled fullWidth size="lg" />
         <Button label="Reset profile" onPress={onResetProfile} variant="ghost" size="sm" />
       </View>
     </View>
@@ -42,19 +39,28 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: tokens.color.bg,
     paddingHorizontal: tokens.space[5],
-    paddingTop: tokens.space[6],
+    paddingTop: tokens.space[5],
     paddingBottom: tokens.space[5],
-    gap: tokens.space[3],
   },
-  heroBlock: {
+  hero: {
+    flex: 1,
     alignItems: 'center',
-    paddingVertical: tokens.space[6],
+    justifyContent: 'center',
+    gap: tokens.space[5],
+  },
+  text: {
+    alignItems: 'center',
+    gap: tokens.space[2],
+    maxWidth: 320,
+  },
+  center: {
+    textAlign: 'center',
   },
   eyebrow: {
     fontSize: tokens.type.sizes.sm,
     fontWeight: tokens.type.weights.medium,
     color: tokens.color.brand[600],
-    letterSpacing: 1,
+    letterSpacing: 1.2,
     textTransform: 'uppercase',
     fontFamily: tokens.type.family,
   },
@@ -73,7 +79,6 @@ const styles = StyleSheet.create({
     fontFamily: tokens.type.family,
   },
   footer: {
-    marginTop: 'auto',
     gap: tokens.space[3],
     alignItems: 'center',
   },

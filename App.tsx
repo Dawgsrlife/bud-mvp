@@ -11,6 +11,7 @@ import { tokens } from './src/core/theme/tokens';
 import { isOk } from './src/core/errors/result';
 import { OnboardingScreen } from './src/features/profile/presentation/screens/onboarding-screen';
 import { HomeScreen } from './src/features/scanner/presentation/screens/home-screen';
+import { PhoneFrame } from './src/shared/widgets/phone-frame';
 
 type AppState =
   | { kind: 'loading' }
@@ -37,23 +38,25 @@ export default function App() {
   return (
     <GestureHandlerRootView style={styles.root}>
       <SafeAreaProvider>
-        <SafeAreaView style={styles.safe}>
-          <StatusBar style="dark" />
-          {state.kind === 'loading' && (
-            <View style={styles.center}>
-              <ActivityIndicator color={tokens.color.brand[500]} />
-            </View>
-          )}
-          {state.kind === 'onboarding' && (
-            <OnboardingScreen onDone={() => void loadProfile()} />
-          )}
-          {state.kind === 'home' && (
-            <HomeScreen
-              allergenCount={state.allergenCount}
-              onResetProfile={() => setState({ kind: 'onboarding' })}
-            />
-          )}
-        </SafeAreaView>
+        <PhoneFrame>
+          <SafeAreaView style={styles.safe}>
+            <StatusBar style="dark" />
+            {state.kind === 'loading' && (
+              <View style={styles.center}>
+                <ActivityIndicator color={tokens.color.brand[500]} />
+              </View>
+            )}
+            {state.kind === 'onboarding' && (
+              <OnboardingScreen onDone={() => void loadProfile()} />
+            )}
+            {state.kind === 'home' && (
+              <HomeScreen
+                allergenCount={state.allergenCount}
+                onResetProfile={() => setState({ kind: 'onboarding' })}
+              />
+            )}
+          </SafeAreaView>
+        </PhoneFrame>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
