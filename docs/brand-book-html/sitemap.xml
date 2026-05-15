@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://bud-brand-book.vercel.app/</loc><priority>1.0</priority></url>
+  <url><loc>https://bud-brand-book.vercel.app/all-links</loc><priority>1.0</priority></url>
+  <url><loc>https://bud-brand-book.vercel.app/01-foundations</loc><priority>0.9</priority></url>
+  <url><loc>https://bud-brand-book.vercel.app/02-brand-strategy</loc><priority>0.9</priority></url>
+  <url><loc>https://bud-brand-book.vercel.app/03-voice-and-tone</loc><priority>0.9</priority></url>
+  <url><loc>https://bud-brand-book.vercel.app/04-logo</loc><priority>0.9</priority></url>
+  <url><loc>https://bud-brand-book.vercel.app/05-color</loc><priority>0.9</priority></url>
+  <url><loc>https://bud-brand-book.vercel.app/06-typography</loc><priority>0.9</priority></url>
+  <url><loc>https://bud-brand-book.vercel.app/07-iconography</loc><priority>0.9</priority></url>
+  <url><loc>https://bud-brand-book.vercel.app/08-motion</loc><priority>0.9</priority></url>
+  <url><loc>https://bud-brand-book.vercel.app/10-verdict</loc><priority>0.9</priority></url>
+  <url><loc>https://bud-brand-book.vercel.app/16-log</loc><priority>0.7</priority></url>
+  <url><loc>https://bud-brand-book.vercel.app/color-ladder</loc><priority>0.7</priority></url>
+</urlset>

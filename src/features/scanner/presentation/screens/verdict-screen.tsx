@@ -1,16 +1,27 @@
 // VerdictScreen - the moment of truth.
 // Brand discipline: restrained card + tinted accent. No status-color flood (Yuka territory).
 // Three variants share one layout; only the headline word + accent color change.
+//
+// Slice 7 adds a "Share" CTA that snapshots an offscreen-rendered VerdictShareCard
+// to PNG and hands it to the OS share sheet. Card rendered offscreen so the on-screen
+// layout stays untouched while the export looks pristine.
 
+import { useRef, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Animated, { FadeIn, FadeInUp, SlideInDown } from 'react-native-reanimated';
 import { tokens } from '../../../../core/theme/tokens';
 import { BuddyMascot } from '../../../../shared/widgets/buddy-mascot';
 import { Button } from '../../../../shared/widgets/button';
+import { VerdictShareCard } from '../../../share/presentation/widgets/verdict-share-card';
+import { useShareViewModel } from '../../../share/presentation/viewmodels/use-share-viewmodel';
+import type { ShareableVerdict } from '../../../share/domain/entities/shareable-verdict';
+import { ReportSheet } from '../../../reports/presentation/widgets/report-sheet';
 import type { Verdict, VerdictKind } from '../../domain/entities/verdict';
 
 interface VerdictScreenProps {
   verdict: Verdict;
+  productName?: string | null;
+  productId?: string | null;
   onScanAgain: () => void;
 }
 
@@ -19,7 +30,7 @@ const COPY_BY_KIND: Record<
   { headline: string; mood: 'happy' | 'warning' | 'thinking'; accent: string; tone: string }
 > = {
   compatible: {
-    headline: 'Eat freely.',
+    headline: 'No declared allergens on your profile.',
     mood: 'happy',
     accent: tokens.color.status.ok,
     tone: 'Compatible',
@@ -34,7 +45,7 @@ const COPY_BY_KIND: Record<
     headline: 'Your call.',
     mood: 'thinking',
     accent: tokens.color.status.warn,
-    tone: 'Caution',
+    tone: 'Uncertain',
   },
   unknown: {
     headline: "Couldn't tell.",
@@ -44,10 +55,33 @@ const COPY_BY_KIND: Record<
   },
 };
 
-export function VerdictScreen({ verdict, onScanAgain }: VerdictScreenProps) {
+export function VerdictScreen({
+  verdict,
+  productName = null,
+  productId = null,
+  onScanAgain,
+}: VerdictScreenProps) {
   const copy = COPY_BY_KIND[verdict.kind];
   const showTriggered = verdict.triggeredAllergens.length > 0;
   const showMayContain = verdict.mayContainAllergens.length > 0;
+
+  const shareCardRef = useRef<View>(null);
+  const { status: shareStatus, share } = useShareViewModel();
+  const [reportOpen, setReportOpen] = useState(false);
+
+  const handleShare = async () => {
+    const node = shareCardRef.current;
+    if (!node) return;
+    const shareable: ShareableVerdict = {
+      kind: verdict.kind,
+      headline: copy.headline,
+      productName,
+      triggeredAllergens: verdict.triggeredAllergens,
+      mayContainAllergens: verdict.mayContainAllergens,
+      capturedAt: new Date(),
+    };
+    await share(shareable, node);
+  };
 
   return (
     <View style={styles.container}>
@@ -95,7 +129,52 @@ export function VerdictScreen({ verdict, onScanAgain }: VerdictScreenProps) {
       </Animated.View>
 
       <View style={styles.footer}>
+        <Button
+          label={
+            shareStatus === 'sharing'
+              ? 'Preparing card...'
+              : shareStatus === 'shared'
+                ? 'Shared'
+                : 'Share verdict'
+          }
+          onPress={handleShare}
+          variant="secondary"
+          fullWidth
+          size="md"
+          disabled={shareStatus === 'sharing'}
+        />
         <Button label="Scan another" onPress={onScanAgain} fullWidth size="lg" />
+        {productId && (
+          <Button
+            label="Report this verdict"
+            onPress={() => setReportOpen(true)}
+            variant="ghost"
+            fullWidth
+            size="sm"
+          />
+        )}
+      </View>
+
+      <ReportSheet
+        visible={reportOpen}
+        productId={productId}
+        onClose={() => setReportOpen(false)}
+      />
+
+      {/* Offscreen capture target. Pointer-events: none + opacity: 0 keeps it
+          invisible while still being rendered (view-shot needs a real layout). */}
+      <View style={styles.offscreen} pointerEvents="none">
+        <VerdictShareCard
+          ref={shareCardRef}
+          verdict={{
+            kind: verdict.kind,
+            headline: copy.headline,
+            productName,
+            triggeredAllergens: verdict.triggeredAllergens,
+            mayContainAllergens: verdict.mayContainAllergens,
+            capturedAt: new Date(),
+          }}
+        />
       </View>
     </View>
   );
@@ -200,5 +279,11 @@ const styles = StyleSheet.create({
   footer: {
     marginTop: 'auto',
     gap: tokens.space[2],
+  },
+  offscreen: {
+    position: 'absolute',
+    left: -9999,
+    top: 0,
+    opacity: 0,
   },
 });

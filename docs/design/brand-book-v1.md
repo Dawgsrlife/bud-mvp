@@ -24,7 +24,7 @@ Calm. Trusted. Personal. Not corporate. Not a megaphone. A pocket second opinion
 | Context | Tone | Example |
 |---|---|---|
 | **Verdict: avoid** | Direct, factual, not alarming | "Contains peanut. Skip this." |
-| **Verdict: compatible** | Quietly celebratory | "Clean for you." or "Eat freely." |
+| **Verdict: compatible** | Quietly celebratory | "No allergens on your profile." or "No matches found." |
 | **Verdict: caution** | Honest, transparent about confidence | "May contain tree nuts. Up to you." |
 | **Onboarding** | Warm, conversational, never patronizing | "Tell me what to watch out for." |
 | **Empty state** | Encouraging, never lecturing | "Scan your first product to get going." |
@@ -32,7 +32,7 @@ Calm. Trusted. Personal. Not corporate. Not a megaphone. A pocket second opinion
 | **Marketing copy** | Founder-authentic, no buzzword soup | "The buddy you always needed." |
 
 ### Words BUD uses
-clean, safe, skip this, eat freely, watch out, your call, up to you, let's check, second opinion, the label says, contains, may contain, your profile.
+no matches, skip this, contains, may contain, watch out, your call, up to you, let's check, second opinion, the label says, contains, may contain, your profile.
 
 ### Words BUD does NOT use
 revolutionary, AI-powered, intelligent, smart, disruptive, leverage, ecosystem, platform, transform, empower, optimize, journey (in marketing), unlock, magical, seamless.
@@ -134,9 +134,9 @@ Current scaffold uses BUD green `#1FAB5C`. Honest about what this picks up + wha
 
 | Channel | Hero example |
 |---|---|
-| **Landing page hero** | "The buddy you always needed. Point. Scan. Eat freely." |
+| **Landing page hero** | "The buddy you always needed. Point. Scan. Done." |
 | **Email subject** | "Your new BUD profile is ready" |
-| **Push notification (safe verdict)** | "Clean for you. Go ahead." |
+| **Push notification (compatible verdict)** | "No allergens on your profile." |
 | **Push notification (avoid verdict)** | "Skip this. Contains peanut." |
 | **App Store description** | (3 sentences max, plain English, no buzzwords) |
 

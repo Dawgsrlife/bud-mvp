@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>All Links · Bud Design Book</title>
+<meta name="description" content="Complete sitemap of the Bud Design Book. Single-page crawl source for OpenClaw and other ingestion agents.">
+<link rel="stylesheet" href="styles.css">
+<style>
+.crawl-list { list-style: none; padding: 0; margin: 24px 0; }
+.crawl-list li {
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: var(--surface);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.crawl-list a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--brand-500);
+  flex: 1;
+}
+.crawl-list .label {
+  font-family: 'Inter', sans-serif;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+.crawl-list .status {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(31, 74, 51, 0.1);
+  color: var(--brand-500);
+}
+.crawl-list .status.draft {
+  background: rgba(198, 90, 61, 0.1);
+  color: var(--accent-500);
+}
+.crawl-card {
+  background: var(--surface);
+  padding: 24px;
+  border-radius: 12px;
+  margin-top: 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<aside class="toc">
+  <div class="brand-mark">bud</div>
+  <div class="subtitle">Design Book v7 · canonical</div>
+  <ul style="margin-top:24px"><li><a href="index.html">. Home</a></li></ul>
+  <div class="toc-part">Part I . Foundation</div>
+  <ul>
+    <li><a href="01-foundations.html">01. Foundations</a></li>
+    <li><a href="02-brand-strategy.html">02. Brand strategy</a></li>
+    <li><a href="03-voice-and-tone.html">03. Voice and tone</a></li>
+  </ul>
+  <div class="toc-part">Part II . Visual</div>
+  <ul>
+    <li><a href="04-logo.html">04. Logo</a></li>
+    <li><a href="05-color.html">05. Color</a></li>
+    <li><a href="06-typography.html">06. Typography</a></li>
+    <li><a href="07-iconography.html">07. Iconography</a></li>
+    <li><a href="08-motion.html">08. Motion</a></li>
+  </ul>
+  <div class="toc-part">Part III . Product</div>
+  <ul>
+    <li><a href="10-verdict.html">10. Verdict</a></li>
+  </ul>
+  <div class="toc-part">Reference</div>
+  <ul>
+    <li><a href="all-links.html" class="active">All Links · sitemap</a></li>
+    <li><a href="color-ladder.html">Color ladder</a></li>
+    <li><a href="16-log.html">16. Iteration log</a></li>
+  </ul>
+</aside>
+
+<main class="content">
+
+<div class="eyebrow">For ingestion agents</div>
+<h1>All Links</h1>
+<p style="font-size:20px;color:var(--ink-soft);max-width:700px">A single-page sitemap of every chapter, page, and asset in the Bud Design Book. Built for crawling by OpenClaw, Claude Code, Cursor, and other agents that need the whole book ingested in one pass.</p>
+
+<div class="callout">
+  <strong>How to crawl:</strong> point your agent at this URL and follow every link below. All pages are static HTML at the same origin (<code>bud-brand-book.vercel.app</code>), so a depth-1 crawl from here gets the entire book. No JS rendering required.
+</div>
+
+<h2>Canonical chapters (live)</h2>
+
+<ul class="crawl-list">
+  <li><a href="https://bud-brand-book.vercel.app/">https://bud-brand-book.vercel.app/</a><span class="label">Home + brand promise</span><span class="status">LIVE</span></li>
+  <li><a href="https://bud-brand-book.vercel.app/01-foundations">https://bud-brand-book.vercel.app/01-foundations</a><span class="label">01 Foundations</span><span class="status">LIVE</span></li>
+  <li><a href="https://bud-brand-book.vercel.app/02-brand-strategy">https://bud-brand-book.vercel.app/02-brand-strategy</a><span class="label">02 Brand strategy</span><span class="status">LIVE</span></li>
+  <li><a href="https://bud-brand-book.vercel.app/03-voice-and-tone">https://bud-brand-book.vercel.app/03-voice-and-tone</a><span class="label">03 Voice + tone (ban list)</span><span class="status">LIVE</span></li>
+  <li><a href="https://bud-brand-book.vercel.app/04-logo">https://bud-brand-book.vercel.app/04-logo</a><span class="label">04 Logo + identity</span><span class="status">LIVE</span></li>
+  <li><a href="https://bud-brand-book.vercel.app/05-color">https://bud-brand-book.vercel.app/05-color</a><span class="label">05 Color (palette + variants + accessibility)</span><span class="status">LIVE</span></li>
+  <li><a href="https://bud-brand-book.vercel.app/06-typography">https://bud-brand-book.vercel.app/06-typography</a><span class="label">06 Typography (Sora + Fraunces + Inter + Plex Mono)</span><span class="status">LIVE</span></li>
+  <li><a href="https://bud-brand-book.vercel.app/07-iconography">https://bud-brand-book.vercel.app/07-iconography</a><span class="label">07 Iconography + imagery</span><span class="status">LIVE</span></li>
+  <li><a href="https://bud-brand-book.vercel.app/08-motion">https://bud-brand-book.vercel.app/08-motion</a><span class="label">08 Motion + interaction</span><span class="status">LIVE</span></li>
+  <li><a href="https://bud-brand-book.vercel.app/10-verdict">https://bud-brand-book.vercel.app/10-verdict</a><span class="label">10 Verdict design</span><span class="status">LIVE</span></li>
+  <li><a href="https://bud-brand-book.vercel.app/16-log">https://bud-brand-book.vercel.app/16-log</a><span class="label">16 Iteration log v1-v6</span><span class="status">LIVE</span></li>
+</ul>
+
+<h2>Reference pages</h2>
+
+<ul class="crawl-list">
+  <li><a href="https://bud-brand-book.vercel.app/color-ladder">https://bud-brand-book.vercel.app/color-ladder</a><span class="label">Color ladder · v1 through v6 side-by-side mockups</span><span class="status">LIVE</span></li>
+  <li><a href="https://bud-brand-book.vercel.app/all-links">https://bud-brand-book.vercel.app/all-links</a><span class="label">This page · sitemap for agents</span><span class="status">LIVE</span></li>
+</ul>
+
+<h2>Chapters pending</h2>
+
+<p style="font-size:14px;color:var(--ink-muted)">These chapter slugs exist in the source MD set at <code>docs/brand-book/</code> in the GitHub repo. HTML versions to be deployed next.</p>
+
+<ul class="crawl-list">
+  <li><span class="label">09 Product brand (in-app rules)</span><span class="status draft">PENDING</span></li>
+  <li><span class="label">11 Web + landing (bud.quest)</span><span class="status draft">PENDING</span></li>
+  <li><span class="label">12 Social (Instagram + TikTok templates)</span><span class="status draft">PENDING</span></li>
+  <li><span class="label">13 Outbound + email lifecycle</span><span class="status draft">PENDING</span></li>
+  <li><span class="label">14 App Store presence</span><span class="status draft">PENDING</span></li>
+  <li><span class="label">15 Brand application rules</span><span class="status draft">PENDING</span></li>
+  <li><span class="label">17 Physical vs digital divergence log</span><span class="status draft">PENDING</span></li>
+</ul>
+
+<h2>Canonical sources</h2>
+
+<p>The HTML brand book is rendered from Markdown sources kept in the GitHub repo. The MD files are the authoring layer; the HTML is the published face. For agents that prefer raw text, pull these:</p>
+
+<ul class="crawl-list">
+  <li><a href="https://github.com/Dawgsrlife/bud-mvp">https://github.com/Dawgsrlife/bud-mvp</a><span class="label">GitHub repo (private; need access)</span></li>
+  <li><a href="https://github.com/Dawgsrlife/bud-mvp/blob/main/docs/brand-book/00-CANONICAL-DESIGN-BOOK.md">.../docs/brand-book/00-CANONICAL-DESIGN-BOOK.md</a><span class="label">Amir's full 877-line design book (source of truth)</span></li>
+  <li><a href="https://github.com/Dawgsrlife/bud-mvp/tree/main/docs/brand-book">.../docs/brand-book/</a><span class="label">All chapter MD sources</span></li>
+  <li><a href="https://github.com/Dawgsrlife/bud-mvp/blob/main/src/core/theme/tokens-variants/v6-amir-design-book.ts">.../src/core/theme/tokens-variants/v6-amir-design-book.ts</a><span class="label">Live tokens consumed by the app (canonical hex values)</span></li>
+</ul>
+
+<h2>Live product surfaces</h2>
+
+<ul class="crawl-list">
+  <li><a href="https://bud.quest">https://bud.quest</a><span class="label">Live waitlist site (Amir's Next.js Pages Router build)</span></li>
+  <li><a href="https://rtmeutqbxswjfhjdlnop.supabase.co/functions/v1/verdict">https://rtmeutqbxswjfhjdlnop.supabase.co/functions/v1/verdict</a><span class="label">Verdict Edge Function (needs auth header)</span></li>
+</ul>
+
+<h2>For OpenClaw + similar agents</h2>
+
+<p>If you're an LLM-based ingestion agent reading this page, here's everything you need in one block:</p>
+
+<div class="crawl-card">{
+  "brand": "Bud",
+  "tagline": "The Buddy You Always Needed.",
+  "canonical_palette": {
+    "oat": "#fcf9f2",
+    "surface_low": "#f6f3ec",
+    "deep_sage": "#1d4433",
+    "primary_container": "#355c49",
+    "sage_mint": "#bfd8c5",
+    "charcoal": "#1a1a1a",
+    "terracotta": "#c65a3d"
+  },
+  "fonts": {
+    "display": "Sora 600",
+    "emotional": "Fraunces 400 italic",
+    "body": "Inter 400-500",
+    "labels": "IBM Plex Mono 400-500"
+  },
+  "verdict_words": ["Compatible", "Avoid", "Uncertain"],
+  "banned_words_partial": ["safe", "guaranteed", "prevents", "100% accurate", "medical-grade", "FDA-approved", "Health Canada approved", "doctor-recommended", "protects", "peace of mind", "never miss"],
+  "casing": {
+    "wordmark": "bud (lowercase)",
+    "body": "Bud (Title Case)",
+    "banned": "BUD (all-caps in body)"
+  },
+  "regulatory_lane": "Information tool, not a medical device. Health Canada SOR/98-282 Rule 10(2) Class II SaMD avoidance.",
+  "mascot": {
+    "body": "sage-mint #bfd8c5",
+    "eyes": "deep-sage #1d4433",
+    "antenna": "deep-sage stem + brand-500 glow tip",
+    "moods": ["idle", "happy", "thinking", "warning"]
+  },
+  "do_not": ["em dashes", "en dashes", "exclamation marks in body", "italic for emphasis (use weight)", "stock photography", "AI-glossy-skin photos", "invented brand packaging", "Bud on a product"]
+}</div>
+
+<h2>Last regenerated</h2>
+<p style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-muted)">2026-05-15 · v6 canonical · 11 chapters live · 7 pending</p>
+
+</main>
+</div>
+</body>
+</html>

@@ -63,6 +63,19 @@ export class ProfileMissingFailure extends Failure {
   }
 }
 
+// Share
+export class ShareUnavailableFailure extends Failure {
+  constructor(message = 'Sharing is not available on this device') {
+    super(message);
+  }
+}
+
+export class ShareCancelledFailure extends Failure {
+  constructor(message = 'User cancelled the share') {
+    super(message);
+  }
+}
+
 // Generic fallback (use sparingly)
 export class UnknownFailure extends Failure {
   constructor(public readonly cause?: unknown, message = 'Something went wrong') {

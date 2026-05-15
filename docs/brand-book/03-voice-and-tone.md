@@ -7,7 +7,7 @@
 | Trait | Looks like | Does not look like |
 |---|---|---|
 | **Direct** | "Contains peanut. Skip this." | "Hmm, this might be something to think about." |
-| **Specific** | "Clean for you." | "Looks fine." |
+| **Specific** | "Cleared against your profile." | "Looks fine." |
 | **Calm** | "Up to you." | "WARNING: POTENTIAL ALLERGEN DETECTED." |
 | **Honest about confidence** | "I'm 78% sure." | "Probably safe!" |
 | **Hand-on-shoulder warm** | "Got it. I'll watch for these." | "Profile saved successfully." |
@@ -17,20 +17,20 @@
 | Context | Tone | Example |
 |---|---|---|
 | **Verdict: avoid** | Direct, factual, not alarming | "Contains peanut. Skip this." |
-| **Verdict: compatible** | Quietly celebratory | "Clean for you." / "Eat freely." |
-| **Verdict: caution** | Honest, transparent about confidence | "May contain tree nuts. Your call." |
+| **Verdict: compatible** | Direct, descriptive, not a safety claim | "Cleared against your profile." / "No declared allergens on your profile." |
+| **Verdict: uncertain** | Honest, transparent about confidence | "May contain tree nuts. Your call." |
 | **Onboarding** | Warm, conversational | "Tell me what to watch out for." |
 | **Empty state** | Encouraging, never lecturing | "Scan your first product to get going." |
 | **Error** | Apologetic, never blames the user | "We couldn't read that label. Try a closer angle?" |
 | **Marketing copy** | Founder-authentic, no buzzwords | "The buddy you always needed." |
-| **Push notification (safe)** | Tiny, warm | "Clean for you. Go ahead." |
+| **Push notification (compatible)** | Tiny, direct | "Cleared against your profile." |
 | **Push notification (avoid)** | Tiny, direct | "Skip this. Contains peanut." |
 
 ## Words BUD uses
 
 | Category | Examples |
 |---|---|
-| **Verdict words** | clean, safe, skip this, eat freely, watch out, your call, up to you |
+| **Verdict words** | no matches, skip this, contains, may contain, watch out, your call, up to you |
 | **Action words** | let's check, scan a product, point at it, retake, try again |
 | **Trust words** | second opinion, the label says, contains, may contain, your profile, watching for, no surprises |
 | **Founder words** | the buddy you always needed, hand-on-shoulder, real second opinion |
@@ -77,16 +77,16 @@ CTA:  Let's start                     [Inter Medium, ink button, surface text]
 ```
 COMPATIBLE
   Tone pill: COMPATIBLE (status-ok)
-  Headline: Eat freely.
-  Reason: Clean for you.
+  Headline: No declared allergens on your profile.
+  Reason: Nothing on your profile detected.
 
 AVOID
   Tone pill: AVOID (status-danger)
   Headline: Skip this.
   Reason: Contains peanut.   [be specific]
 
-CAUTION
-  Tone pill: CAUTION (status-warn)
+UNCERTAIN
+  Tone pill: UNCERTAIN (status-warn)
   Headline: Your call.
   Reason: May contain tree nuts.
 
@@ -102,7 +102,7 @@ UNKNOWN
 LANDING HERO
   Eyebrow: For the people who actually read every label
   Headline: The buddy you always needed.
-  Subhead: Point. Scan. Eat freely. BUD reads the actual package text and tells
+  Subhead: Point. Scan. Done. Bud reads the actual package text and tells
            you what's safe for you, in seconds.
   CTA: Get early access
 

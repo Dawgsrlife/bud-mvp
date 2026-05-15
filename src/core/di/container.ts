@@ -28,6 +28,17 @@ import { ScannerRepositoryImpl } from '../../features/scanner/data/repositories/
 import { ScanProductUseCase } from '../../features/scanner/domain/usecases/scan-product-usecase';
 import type { ScannerRepository } from '../../features/scanner/domain/repositories/scanner-repository';
 
+import { SnapshotDataSource } from '../../features/share/data/datasources/snapshot-datasource';
+import { ShareSheetDataSource } from '../../features/share/data/datasources/share-sheet-datasource';
+import { ShareRepositoryImpl } from '../../features/share/data/repositories/share-repository-impl';
+import { ShareVerdictCardUseCase } from '../../features/share/domain/usecases/share-verdict-card-usecase';
+import type { ShareRepository } from '../../features/share/domain/repositories/share-repository';
+
+import { ReportDataSource } from '../../features/reports/data/datasources/report-datasource';
+import { ReportRepositoryImpl } from '../../features/reports/data/repositories/report-repository-impl';
+import { SubmitReportUseCase } from '../../features/reports/domain/usecases/submit-report-usecase';
+import type { ReportRepository } from '../../features/reports/domain/repositories/report-repository';
+
 // ---------- Profile feature ----------
 const profileStorageDataSource = new ProfileStorageDataSource();
 const profileRepository: ProfileRepository = new ProfileRepositoryImpl(profileStorageDataSource);
@@ -48,9 +59,24 @@ const scannerRepository: ScannerRepository = new ScannerRepositoryImpl(
   { useRemoteVerdict: true },
 );
 
+// ---------- Share feature ----------
+const snapshotDataSource = new SnapshotDataSource();
+const shareSheetDataSource = new ShareSheetDataSource();
+const shareRepository: ShareRepository = new ShareRepositoryImpl(
+  snapshotDataSource,
+  shareSheetDataSource,
+);
+
+// ---------- Reports feature ----------
+const reportDataSource = new ReportDataSource();
+const reportRepository: ReportRepository = new ReportRepositoryImpl(reportDataSource);
+
 // ---------- Public surface ----------
 export const container = {
   loadProfileUseCase: (): LoadProfileUseCase => new LoadProfileUseCase(profileRepository),
   saveProfileUseCase: (): SaveProfileUseCase => new SaveProfileUseCase(profileRepository),
   scanProductUseCase: (): ScanProductUseCase => new ScanProductUseCase(scannerRepository),
+  shareVerdictCardUseCase: (): ShareVerdictCardUseCase =>
+    new ShareVerdictCardUseCase(shareRepository),
+  submitReportUseCase: (): SubmitReportUseCase => new SubmitReportUseCase(reportRepository),
 };

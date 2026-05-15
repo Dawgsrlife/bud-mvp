@@ -8,9 +8,9 @@ The verdict screen is **the single highest-stakes surface in the entire product.
 
 | Kind | When | Headline | Mascot mood | Accent color | Verdict pill label |
 |---|---|---|---|---|---|
-| `compatible` | No allergens triggered, no may-contains | "Eat freely." | happy (eye squish-bounce) | `status.ok` (green) | COMPATIBLE |
+| `compatible` | No allergens triggered, no may-contains | "No matches found." | happy (eye squish-bounce) | `status.ok` (green) | COMPATIBLE |
 | `avoid` | One or more allergens directly in ingredients | "Skip this." | warning (wide eyes) | `status.danger` (red) | AVOID |
-| `caution` | One or more allergens in "may contain" only | "Your call." | thinking (placeholder) | `status.warn` (amber) | CAUTION |
+| `caution` | One or more allergens in "may contain" only | "Your call." | thinking (placeholder) | `status.warn` (amber) | UNCERTAIN |
 | `unknown` | OCR confidence too low, or no match either way | "Couldn't tell." | thinking | `inkMuted` | UNKNOWN |
 
 ## The layout (locked)
@@ -23,8 +23,8 @@ Single layout for all three kinds. Only **headline word**, **accent color**, and
 │      (size 120, centered)    │
 │                              │
 │       ▷ TONE PILL ◁         │
-│      "Eat freely."           │  Hero (Inter Bold 2xl, ink, tight)
-│   "Clean for you."           │  Reason (Inter Regular lg, ink-soft)
+│      "No matches found."           │  Hero (Inter Bold 2xl, ink, tight)
+│   "No allergens on your profile."           │  Reason (Inter Regular lg, ink-soft)
 ├──────────────────────────────┤
 │  ┌────────────────────────┐  │
 │  │ DETECTED               │  │ Card (surface + line border)
@@ -99,7 +99,7 @@ Reasons should be **specific** and **short**. The user has 2 seconds to read thi
 
 | Verdict | Pattern | Example |
 |---|---|---|
-| compatible | "Clean for you." or category-specific | "Clean for you." / "No allergens on your profile." |
+| compatible | "No allergens on your profile." or category-specific | "No allergens on your profile." / "No allergens on your profile." |
 | avoid | "Contains X." or "Contains X, Y." | "Contains peanut." / "Contains milk, soy." |
 | caution | "May contain X." | "May contain tree nuts." |
 | unknown | Honest about why | "I couldn't read the label clearly. Try a different angle?" |
@@ -113,13 +113,13 @@ Confidence is shown as a percentage in the detail card. Treatment:
 - Medium (70-89%): "78% confident"
 - Low (< 70%): elevate to `unknown` verdict instead of showing the verdict at low confidence
 
-**Never round up to 100%.** Even "Clean for you" caps at 99% because there's always nonzero recognition error.
+**Never round up to 100%.** Compatible verdicts cap at 99% because there is always nonzero recognition error.
 
 ## Variants in code
 
 ```typescript
 const COPY_BY_KIND: Record<VerdictKind, { ... }> = {
-  compatible: { headline: 'Eat freely.', mood: 'happy', accent: status.ok, tone: 'Compatible' },
+  compatible: { headline: 'No matches found.', mood: 'happy', accent: status.ok, tone: 'Compatible' },
   avoid:      { headline: 'Skip this.', mood: 'warning', accent: status.danger, tone: 'Avoid' },
   caution:    { headline: 'Your call.', mood: 'thinking', accent: status.warn, tone: 'Caution' },
   unknown:    { headline: "Couldn't tell.", mood: 'thinking', accent: inkMuted, tone: 'Unknown' },

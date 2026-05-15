@@ -68,6 +68,6 @@ export class VerdictDataSource {
       const list = mayContain.join(', ');
       return Verdict.caution(mayContain, `May contain ${list}.`, Math.min(confidence, 0.85));
     }
-    return Verdict.compatible('Clean for you.');
+    return Verdict.compatible('Cleared against your profile.');
   }
 }

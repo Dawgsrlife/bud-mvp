@@ -3,15 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>06 . Typography . BUD Brand Book</title>
+<title>06 . Typography . Bud Design Book</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=Inter:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="app">
 
 <aside class="toc">
-  <div class="brand-mark">BUD</div>
-  <div class="subtitle">Brand Book v4</div>
+  <div class="brand-mark">bud</div>
+  <div class="subtitle">Design Book v7 · canonical</div>
   <ul style="margin-top:24px"><li><a href="index.html">. Home</a></li></ul>
   <div class="toc-part">Part II . Visual</div>
   <ul>
@@ -27,21 +30,63 @@
 
 <div class="eyebrow">Chapter 06</div>
 <h1>Typography</h1>
-<p style="font-size:20px;color:var(--ink-soft);">Inter Variable. Six sizes. Three weights. Discipline beats variety.</p>
+<p style="font-size:20px;color:var(--ink-soft);">Four-font editorial system. Sora for structure. Fraunces Italic for emotional accents. Inter for body. IBM Plex Mono for data. Discipline beats variety.</p>
 
-<h2>The family</h2>
-<p><strong>Inter Variable</strong> for body and UI. Inter Display for hero numbers. Free, open-source, geometric, modern, wide language support (covers French for Canadian labeling).</p>
+<h2>The four families</h2>
 
-<h2>The scale</h2>
+<table>
+  <tr><th>Role</th><th>Family</th><th>Weight</th><th>Used for</th></tr>
+  <tr><td>Wordmark + display</td><td>Sora</td><td>600</td><td>"bud" wordmark, hero headlines, screen titles, CTA buttons</td></tr>
+  <tr><td>Emotional accent</td><td>Fraunces Italic</td><td>400-500</td><td>Tagline, pull quotes, hand-on-shoulder moments</td></tr>
+  <tr><td>Body</td><td>Inter</td><td>400-500-700</td><td>Body copy, subheads, helper text, ingredient lists</td></tr>
+  <tr><td>Data + labels</td><td>IBM Plex Mono</td><td>400-500</td><td>Verdict pills, URLs, percentages, code, scan IDs</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>No fifth family.</strong> No Roboto. No Helvetica. No system-ui fallback in production. The four families above are the canon.
+</div>
+
+<h2>The roles in context</h2>
+
+<h3>Sora 600 · wordmark + headlines</h3>
+<div style="background:var(--surface);padding:32px;border-radius:12px;border:1px solid var(--line);max-width:480px;margin-bottom:24px">
+  <div style="font-family:'Sora',sans-serif;font-weight:600;font-size:56px;color:var(--brand-500);letter-spacing:-1.2px;line-height:1;margin-bottom:24px">bud</div>
+  <div style="font-family:'Sora',sans-serif;font-weight:600;font-size:32px;color:var(--ink);letter-spacing:-0.6px;line-height:1.15">A second opinion at the shelf.</div>
+</div>
+
+<h3>Fraunces Italic · tagline + pull quotes</h3>
+<div style="background:var(--surface);padding:32px;border-radius:12px;border:1px solid var(--line);max-width:480px;margin-bottom:24px">
+  <div style="font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:28px;color:var(--ink);line-height:1.3">The buddy you always needed.</div>
+  <div style="font-family:'Inter',sans-serif;font-size:14px;color:var(--ink-muted);margin-top:12px">Hand-on-shoulder warmth. Used sparingly. Once per surface.</div>
+</div>
+
+<h3>Inter · body + subheads</h3>
+<div style="background:var(--surface);padding:32px;border-radius:12px;border:1px solid var(--line);max-width:480px;margin-bottom:24px">
+  <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:20px;color:var(--ink);margin-bottom:8px">Reads the actual package text.</div>
+  <div style="font-family:'Inter',sans-serif;font-weight:400;font-size:16px;color:var(--ink-soft);line-height:1.55">Bud reads what's printed on the label. No barcode database that goes stale the second a manufacturer reformulates. Just the words on the box, every scan.</div>
+</div>
+
+<h3>IBM Plex Mono · data, pills, URLs</h3>
+<div style="background:var(--surface);padding:32px;border-radius:12px;border:1px solid var(--line);max-width:480px;margin-bottom:24px">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+    <span class="tone-pill compatible"><span class="dot"></span><span style="font-family:'IBM Plex Mono',monospace">COMPATIBLE</span></span>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-muted)">93%</span>
+  </div>
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--brand-500)">bud-brand-book.vercel.app</div>
+</div>
+
+<h2>The size scale</h2>
+
+<p>Six sizes. Same scale applies to all four families.</p>
 
 <table>
   <tr><th>Token</th><th>Size</th><th>Sample</th><th>Used for</th></tr>
-  <tr><td><code>xs</code></td><td>12 px</td><td style="font-size:12px;color:var(--ink)">The buddy you always needed</td><td>Status pill labels, tags</td></tr>
-  <tr><td><code>sm</code></td><td>14 px</td><td style="font-size:14px;color:var(--ink)">The buddy you always needed</td><td>Eyebrow labels, helpers</td></tr>
-  <tr><td><code>base</code></td><td>16 px</td><td style="font-size:16px;color:var(--ink)">The buddy you always needed</td><td>Body text, button text</td></tr>
-  <tr><td><code>lg</code></td><td>20 px</td><td style="font-size:20px;color:var(--ink)">The buddy you always needed</td><td>Subheads, card titles</td></tr>
-  <tr><td><code>xl</code></td><td>28 px</td><td style="font-size:28px;color:var(--ink);font-weight:700">The buddy</td><td>Screen titles</td></tr>
-  <tr><td><code>2xl</code></td><td>40 px</td><td style="font-size:40px;color:var(--ink);font-weight:700;letter-spacing:-0.8px">The buddy</td><td>Hero, verdict announce</td></tr>
+  <tr><td><code>xs</code></td><td>12 px</td><td style="font-size:12px;color:var(--ink)">The buddy you always needed</td><td>Plex Mono pill labels, tags, footnotes</td></tr>
+  <tr><td><code>sm</code></td><td>14 px</td><td style="font-size:14px;color:var(--ink)">The buddy you always needed</td><td>Inter eyebrow labels, helpers</td></tr>
+  <tr><td><code>base</code></td><td>16 px</td><td style="font-size:16px;color:var(--ink)">The buddy you always needed</td><td>Inter body, Sora CTA text</td></tr>
+  <tr><td><code>lg</code></td><td>20 px</td><td style="font-size:20px;color:var(--ink)">The buddy you always needed</td><td>Inter subheads, card titles</td></tr>
+  <tr><td><code>xl</code></td><td>28 px</td><td style="font-family:'Sora',sans-serif;font-size:28px;color:var(--ink);font-weight:600;letter-spacing:-0.6px">The buddy</td><td>Sora screen titles, Fraunces taglines</td></tr>
+  <tr><td><code>2xl</code></td><td>40 px</td><td style="font-family:'Sora',sans-serif;font-size:40px;color:var(--ink);font-weight:600;letter-spacing:-1px">The buddy</td><td>Sora hero, verdict announce</td></tr>
 </table>
 
 <div class="callout warning">
@@ -51,56 +96,55 @@
 <h2>The weights</h2>
 
 <table>
-  <tr><th>Token</th><th>Weight</th><th>Sample</th><th>Used for</th></tr>
-  <tr><td><code>regular</code></td><td>400</td><td style="font-weight:400">Hand-on-shoulder warmth</td><td>Body, secondary text</td></tr>
-  <tr><td><code>medium</code></td><td>500</td><td style="font-weight:500">Hand-on-shoulder warmth</td><td>Labels, buttons, emphasis</td></tr>
-  <tr><td><code>bold</code></td><td>700</td><td style="font-weight:700">Hand-on-shoulder warmth</td><td>Headlines, hero, verdict</td></tr>
+  <tr><th>Family</th><th>Weights in use</th><th>Notes</th></tr>
+  <tr><td>Sora</td><td>600 primary, 700 for max emphasis</td><td>Tight letter spacing -0.02em on display sizes</td></tr>
+  <tr><td>Fraunces Italic</td><td>400 default, 500 for emphasis</td><td>Optical size axis: variable, set to size in px</td></tr>
+  <tr><td>Inter</td><td>400 / 500 / 700</td><td>Skip 300, 600, 900</td></tr>
+  <tr><td>IBM Plex Mono</td><td>400 / 500</td><td>Never bold in body, bold only in code blocks</td></tr>
 </table>
-
-<div class="callout warning">
-  <strong>No 300, 600, 900.</strong> Even when "it looks cooler." Weight 700 carries hero.
-</div>
-
-<h2>Hierarchy patterns</h2>
-
-<h3>Hero composition (welcome, home, verdict)</h3>
-<div style="background:var(--surface);padding:24px;border-radius:12px;border:1px solid var(--line);max-width:400px;margin-bottom:24px">
-  <div style="font-size:14px;font-weight:500;color:var(--brand-600);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px">BUD</div>
-  <div style="font-size:40px;font-weight:700;letter-spacing:-0.8px;color:var(--ink);line-height:1.15;margin-bottom:8px">Eat freely.</div>
-  <div style="font-size:20px;color:var(--ink-soft);line-height:1.5">Clean for you. No allergens on your profile.</div>
-</div>
-
-<h3>Section header</h3>
-<div style="background:var(--surface);padding:24px;border-radius:12px;border:1px solid var(--line);max-width:400px;margin-bottom:24px">
-  <div style="font-size:12px;font-weight:500;color:var(--ink-muted);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:8px">DETECTED</div>
-  <div style="font-size:28px;font-weight:700;color:var(--ink);line-height:1.2;margin-bottom:8px">Three allergens flagged.</div>
-  <div style="font-size:16px;color:var(--ink-soft);line-height:1.5">Tap any tag for the source ingredient.</div>
-</div>
-
-<h3>Card row</h3>
-<div style="background:var(--surface);padding:24px;border-radius:12px;border:1px solid var(--line);max-width:400px">
-  <div style="font-size:12px;font-weight:500;color:var(--ink-muted);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px">CONFIDENCE</div>
-  <div style="font-size:16px;font-weight:500;color:var(--ink)">93%</div>
-</div>
 
 <h2>Line heights + letter spacing</h2>
 
 <table>
   <tr><th>Context</th><th>Line height</th><th>Letter spacing</th></tr>
-  <tr><td>Headlines</td><td>1.2 (tight)</td><td>-0.02em (tight)</td></tr>
-  <tr><td>Body, subheads</td><td>1.5 (normal)</td><td>0</td></tr>
-  <tr><td>Long-form content</td><td>1.6 (loose)</td><td>0</td></tr>
-  <tr><td>All-caps eyebrow labels</td><td>1.5</td><td>+1.2 (looser, breathing)</td></tr>
+  <tr><td>Sora display (2xl, xl)</td><td>1.1 (tight)</td><td>-0.02em (tight)</td></tr>
+  <tr><td>Sora screen titles (lg)</td><td>1.2</td><td>-0.01em</td></tr>
+  <tr><td>Fraunces Italic accents</td><td>1.3</td><td>0</td></tr>
+  <tr><td>Inter body, subheads</td><td>1.55</td><td>0</td></tr>
+  <tr><td>Inter long-form</td><td>1.65 (loose)</td><td>0</td></tr>
+  <tr><td>Plex Mono labels (all-caps)</td><td>1.4</td><td>+0.08em (looser)</td></tr>
 </table>
 
-<h2>Banned</h2>
+<h2>Pairing rules</h2>
+
+<ol>
+  <li><strong>Sora carries structure.</strong> Wordmark, hero headlines, screen titles, CTAs. Sora is the load-bearing family.</li>
+  <li><strong>Fraunces Italic is rationed.</strong> Once per surface. Once per email. Never twice in the same paragraph.</li>
+  <li><strong>Inter handles everything else.</strong> 80% of the words on any screen are Inter.</li>
+  <li><strong>Plex Mono only on labels, data, code, and URLs.</strong> Never body. Never long copy.</li>
+  <li><strong>No mixing within a single line.</strong> A line is one family. Cross-family pairing happens vertically, between lines.</li>
+</ol>
+
+<h2>Retired rules (v4 → v7)</h2>
+
+<table>
+  <tr><th>v4 rule</th><th>v7 status</th><th>Why</th></tr>
+  <tr><td>"Italic prohibited"</td><td>Retired</td><td>Fraunces Italic is a locked role. Italic is canon, not banned.</td></tr>
+  <tr><td>"No serif + sans mixing"</td><td>Retired</td><td>Fraunces Italic + Sora + Inter is the editorial system. Mixing is the whole point.</td></tr>
+  <tr><td>"Inter only"</td><td>Retired</td><td>Four families are canon. Inter is one of four, not the only one.</td></tr>
+</table>
+
+<h2>Still banned</h2>
+
 <ul>
-  <li>Italic (use weight for emphasis)</li>
   <li>Underline (except explicit links)</li>
-  <li>Mixing serif + sans (Inter only)</li>
   <li>Font sizes between scale steps</li>
-  <li>Weight 300 or 900</li>
-  <li>All-caps body text</li>
+  <li>Inter weights 300, 600, 900</li>
+  <li>All-caps body text. All-caps is for Plex Mono labels only.</li>
+  <li>Letter-spacing on body Inter (zero, always)</li>
+  <li>Drop shadows on text</li>
+  <li>Mixing Plex Mono into body Inter copy</li>
+  <li>Fraunces Italic used twice in the same paragraph</li>
 </ul>
 
 </main>

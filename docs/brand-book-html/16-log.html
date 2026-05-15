@@ -10,7 +10,7 @@
 <div class="app">
 <aside class="toc">
   <div class="brand-mark">bud</div>
-  <div class="subtitle">Design Book v6 · canonical</div>
+  <div class="subtitle">Design Book v7 · canonical</div>
   <ul style="margin-top:24px"><li><a href="index.html">. Home</a></li></ul>
   <div class="toc-part">Reference</div>
   <ul>
@@ -22,6 +22,10 @@
 <div class="eyebrow">Chapter 16</div>
 <h1>Iteration log</h1>
 <p style="font-size:20px;color:var(--ink-soft)">Append-only history of every brand-book version, what changed, and why.</p>
+
+<h2>v7 (2026-05-15) · Amir sync · regulatory hardening + four-font canon</h2>
+<p><strong>What changed:</strong> Six-piece sync from Amir to bring the deployed book level with the canonical DESIGN-BOOK.md. (1) "CAUTION" verdict label renamed to "UNCERTAIN" across §10 + §03 + all HTML + all TS code labels. (2) Compatible-verdict copy rewritten: headline "No declared allergens on your profile." (was "Eat freely."), reason "Cleared against your profile." (was "Clean for you."). Both prior phrases sit adjacent to banned words ("safe to eat" / "safe for you") and trigger SaMD reclassification risk. Added to §03 ban list. (3) §05 palette swapped from Tailwind/iOS-system hexes to v6 canonical Consumer System: oat #fcf9f2 + surface low #f6f3ec + charcoal #1a1a1a + deep sage #1d4433 + sage mint #bfd8c5 + terracotta #c65a3d. Status-warn #F59E0B retired (fails WCAG AA at 2.69:1). (4) §06 rewritten as four-font editorial system: Sora 600 (wordmark + display), Fraunces Italic (tagline + accents), Inter (body), IBM Plex Mono (data + pills). Retired the "italic prohibited" and "no serif-sans mixing" v4 rules. (5) Locked one green: deep sage #1d4433 wins, emerald #1FAB5C ladder retired from canon.</p>
+<p><strong>Why:</strong> The Vercel-deployed book was pre-v6 on four pages, exposing Bud to a Class II SaMD reclassification + WCAG failures + brand confusion (two greens both flagged canonical). Sync brings book + product + canonical DESIGN-BOOK.md into one truth.</p>
 
 <h2>v6 (2026-05-15) · canonical from Amir's DESIGN-BOOK.md</h2>
 <p><strong>What changed:</strong> Adopted Amir's 877-line DESIGN-BOOK.md as the source of truth. Replaced my eyeball estimates with exact hex codes (oat #fcf9f2, sage-mint #bfd8c5, deep-sage #1d4433, terracotta #c65a3d). Four-font system locked: Sora 600 display, Fraunces italic emotional, Inter body, IBM Plex Mono labels. Verdict words locked to Compatible/Avoid/Uncertain (never "Safe"). Full regulatory ban-list integrated.</p>

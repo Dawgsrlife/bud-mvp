@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Agents: ingest the whole book from the sitemap page
+# https://bud-brand-book.vercel.app/all-links
+
+Sitemap: https://bud-brand-book.vercel.app/sitemap.xml
