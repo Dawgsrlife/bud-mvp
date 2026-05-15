@@ -65,7 +65,8 @@ export function BuddyMascot({ size = 120, mood = 'idle' }: BuddyMascotProps) {
 
   return (
     <Animated.View style={[styles.container, { width: size, height: size }, bodyStyle]}>
-      {/* Body */}
+      {/* Body. Per Amir's design book: sage-mint #bfd8c5 (brand[100]) so the
+          deep-sage eyes have strong contrast and the whole avatar reads warm. */}
       <View
         style={[
           styles.body,
@@ -73,7 +74,7 @@ export function BuddyMascot({ size = 120, mood = 'idle' }: BuddyMascotProps) {
             width: size,
             height: size,
             borderRadius: size,
-            backgroundColor: tokens.color.brand[400],
+            backgroundColor: tokens.color.brand[100],
           },
         ]}
       />
@@ -167,7 +168,8 @@ const styles = StyleSheet.create({
   },
   eye: {
     position: 'absolute',
-    backgroundColor: tokens.color.ink,
+    // Per Amir's design book: deep sage on sage-mint body for high contrast.
+    backgroundColor: tokens.color.brand[500],
   },
   antenna: {
     position: 'absolute',

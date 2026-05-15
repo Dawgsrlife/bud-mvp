@@ -9,7 +9,7 @@
 //
 // See docs/adr/0003-design-system-and-animation.md and docs/design/brand-book-v1.md.
 
-import { colorVariant } from './tokens-variants/v5-amir-website';
+import { colorVariant } from './tokens-variants/v6-amir-design-book';
 
 export const tokens = {
   color: colorVariant,

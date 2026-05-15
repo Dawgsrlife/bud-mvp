@@ -1,24 +1,26 @@
 /* BUD brand book styles. Mirrors the live app design tokens. */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Fraunces:ital,wght@0,400;0,700;1,400;1,700&family=Sora:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 :root {
-  --bg: #FAFAFA;
-  --surface: #FFFFFF;
-  --ink: #0A0A0A;
-  --ink-soft: #3A3A3A;
-  --ink-muted: #6E6E6E;
-  --line: #E5E5E5;
-  --brand-50:  #F0F9F4;
-  --brand-100: #DCF1E6;
-  --brand-400: #5DBC85;
-  --brand-500: #1FAB5C;
-  --brand-600: #168A4A;
-  --brand-700: #106A39;
-  --accent-500: #FF6B6B;
-  --status-ok: #1FAB5C;
-  --status-warn: #F59E0B;
-  --status-danger: #DC2626;
+  /* v6-amir-design-book: canonical "Intelligent Sanctuary" palette from Amir's DESIGN-BOOK.md.
+     Oat / sage-mint / deep sage on cream backgrounds, four-font editorial typography. */
+  --bg: #fcf9f2;            /* Oat */
+  --surface: #f6f3ec;       /* Surface low */
+  --ink: #1a1a1a;           /* Charcoal */
+  --ink-soft: #1e1d1a;
+  --ink-muted: #414844;     /* On-surface variant */
+  --line: rgba(193,200,194,0.2);
+  --brand-50:  #f6f3ec;
+  --brand-100: #bfd8c5;     /* Sage mint */
+  --brand-400: #355c49;     /* Primary container */
+  --brand-500: #1d4433;     /* Deep sage */
+  --brand-600: #143222;
+  --brand-700: #0f2620;
+  --accent-500: #c65a3d;    /* Terracotta */
+  --status-ok: #1d4433;
+  --status-warn: #c65a3d;
+  --status-danger: #1a1a1a; /* Avoid pill is charcoal, NEVER pure red */
 
   --space-1: 4px;
   --space-2: 8px;
@@ -46,6 +48,11 @@ html, body {
   letter-spacing: 0;
 }
 
+/* Sora 600 for display + headlines + CTAs, per Amir's design book. */
+.sora { font-family: 'Sora', 'Helvetica Neue', sans-serif; font-weight: 600; }
+.fraunces-italic { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 400; }
+.mono { font-family: 'IBM Plex Mono', 'SF Mono', monospace; font-weight: 500; }
+
 .app {
   display: grid;
   grid-template-columns: 280px 1fr;
@@ -72,10 +79,11 @@ aside.toc h1 {
 }
 
 aside.toc .brand-mark {
+  font-family: 'Sora', 'Helvetica Neue', sans-serif;
+  font-weight: 600;
   font-size: 28px;
-  font-weight: 700;
-  letter-spacing: -0.6px;
-  color: var(--ink);
+  letter-spacing: -0.02em;
+  color: var(--brand-500);
   margin-bottom: var(--space-2);
 }
 
@@ -138,11 +146,21 @@ main.content .eyebrow {
 }
 
 main.content h1 {
-  font-size: 40px;
-  font-weight: 700;
-  letter-spacing: -0.8px;
-  line-height: 1.15;
+  font-family: 'Sora', 'Helvetica Neue', sans-serif;
+  font-weight: 600;
+  font-size: 44px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
   margin-bottom: var(--space-2);
+  color: var(--brand-500);
+}
+
+main.content h1 em,
+main.content blockquote em {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--brand-500);
 }
 
 main.content h2 {
@@ -316,9 +334,10 @@ main.content a:hover {
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  background: var(--brand-400);
+  /* Sage-mint body per Amir's design book */
+  background: var(--brand-100);
   position: relative;
-  box-shadow: 0 12px 24px rgba(10,10,10,0.12);
+  box-shadow: 0 12px 32px rgba(39, 78, 60, 0.08);
   margin: 0 auto;
 }
 
@@ -326,11 +345,12 @@ main.content a:hover {
 .bud-mascot::after {
   content: '';
   position: absolute;
-  width: 18px;
-  height: 18px;
-  background: var(--ink);
+  width: 16px;
+  height: 16px;
+  /* Per Amir's design book: deep sage eyes on sage-mint body */
+  background: var(--brand-500);
   border-radius: 50%;
-  top: 54px;
+  top: 56px;
 }
 
 .bud-mascot::before { left: 38px; }
