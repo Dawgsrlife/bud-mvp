@@ -51,15 +51,15 @@ test/
 
 | Principle | Rule |
 |---|---|
-| **S — Single Responsibility** | One class per file. Suffix denotes role: `*-screen`, `*-viewmodel`, `*-repository-impl`, `*-usecase`, `*-datasource`. If a file holds two roles, split it. |
-| **O — Open-Closed** | New features = new folder under `features/`. Never edit a shipped feature folder to add capabilities. Exception: bug fixes inside the responsible feature. |
-| **L — Liskov Substitution** | All `*RepositoryImpl` honor their abstract contract shape exactly. If `ScannerRepository.scan()` returns `Either<Failure, Verdict>`, every impl returns the same shape. No throwing where abstract returns Either. |
-| **I — Interface Segregation** | Split fat interfaces. `ScannerRepository`, `ProfileRepository`, `HistoryRepository` separately. Not one mega `BudRepository`. |
-| **D — Dependency Inversion** | Domain defines abstract repos. Data implements. Presentation depends on use cases, not implementations. DI container is the only place concrete meets abstract. |
+| **S. Single Responsibility** | One class per file. Suffix denotes role: `*-screen`, `*-viewmodel`, `*-repository-impl`, `*-usecase`, `*-datasource`. If a file holds two roles, split it. |
+| **O. Open-Closed** | New features = new folder under `features/`. Never edit a shipped feature folder to add capabilities. Exception: bug fixes inside the responsible feature. |
+| **L. Liskov Substitution** | All `*RepositoryImpl` honor their abstract contract shape exactly. If `ScannerRepository.scan()` returns `Either<Failure, Verdict>`, every impl returns the same shape. No throwing where abstract returns Either. |
+| **I. Interface Segregation** | Split fat interfaces. `ScannerRepository`, `ProfileRepository`, `HistoryRepository` separately. Not one mega `BudRepository`. |
+| **D. Dependency Inversion** | Domain defines abstract repos. Data implements. Presentation depends on use cases, not implementations. DI container is the only place concrete meets abstract. |
 
 ## Dependency injection
 
-**Approach:** simple TypeScript factory functions in `core/di/container.ts`. Avoid heavy DI frameworks (`tsyringe`, `inversify`) for the MVP — they add ceremony without benefit at this scale.
+**Approach:** simple TypeScript factory functions in `core/di/container.ts`. Avoid heavy DI frameworks (`tsyringe`, `inversify`) for the MVP. they add ceremony without benefit at this scale.
 
 ```typescript
 // core/di/container.ts
@@ -76,7 +76,7 @@ export const container = {
 };
 ```
 
-ViewModels receive use cases via constructor (class-based) or as args to the hook (functional). No `container.x` calls inside widgets — only at the route-build boundary.
+ViewModels receive use cases via constructor (class-based) or as args to the hook (functional). No `container.x` calls inside widgets. only at the route-build boundary.
 
 ## Naming
 

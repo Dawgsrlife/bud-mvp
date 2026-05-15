@@ -1,5 +1,5 @@
 /**
- * ScannerRepository — abstract contract.
+ * ScannerRepository - abstract contract.
  *
  * SOLID:
  * - Interface Segregation: only scan-related methods. Profile + history live elsewhere.

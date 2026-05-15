@@ -1,5 +1,5 @@
 /**
- * Verdict — pure domain entity. Zero framework imports.
+ * Verdict - pure domain entity. Zero framework imports.
  *
  * SOLID: Single Responsibility. This file describes WHAT a verdict is, nothing else.
  */

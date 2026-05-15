@@ -87,34 +87,34 @@ Brand font: **Inter** (free, geometric, ships via `@expo-google-fonts/inter`). O
 
 Pick **one** brand hue. Generate 50-900 scale via [uicolors.app](https://uicolors.app). Current proposal: BUD green `#1FAB5C` (signals safety/health, distinct from Yuka's red-yellow-green allergen scoring).
 
-Accent color (`#FF6B6B`) used only for danger/avoid states — never as decoration.
+Accent color (`#FF6B6B`) used only for danger/avoid states. never as decoration.
 
 ## Top 10 AI-slop tells to ban
 
 1. Purple-to-pink gradients on buttons or backgrounds
 2. Default Material 3 `FilledButton` with stock ripple
-3. `border-radius` inconsistency (12 here, 16 there, 8 on inputs) — use tokens only
-4. No press state, button just fires — every tappable gets scale + haptic
-5. Center-screen `CircularProgressIndicator` blocking the screen — use skeleton
-6. Emoji as UI icons — use Lucide or Phosphor icon family consistently
-7. Three-shadow stacked card elevation — one shadow max
-8. Soft pastel green/red status pills with stroke borders — use tokens
-9. Keyboard covers the active input — always wrap in `KeyboardAvoidingView`
-10. Generic stock icons mixed (Feather + Material + Ionicons) — pick ONE family
+3. `border-radius` inconsistency (12 here, 16 there, 8 on inputs). use tokens only
+4. No press state, button just fires. every tappable gets scale + haptic
+5. Center-screen `CircularProgressIndicator` blocking the screen. use skeleton
+6. Emoji as UI icons. use Lucide or Phosphor icon family consistently
+7. Three-shadow stacked card elevation. one shadow max
+8. Soft pastel green/red status pills with stroke borders. use tokens
+9. Keyboard covers the active input. always wrap in `KeyboardAvoidingView`
+10. Generic stock icons mixed (Feather + Material + Ionicons). pick ONE family
 
 ## Reference apps to study before coding
 
-1. **Wealthsimple iOS** account screen — numeric hero + restraint
-2. **Atomato (Atomic Habits app)** Dribbble shots by Mateusz Madura — soft neutrals, tactile cards
-3. **Phantom Wallet** swap flow — spring sheets, rolling numbers
-4. **Duolingo** lesson completion — confetti + sound + haptic + scale bounce sequence
-5. **Arc Search** mobile — type-first, generous whitespace, single accent color
-6. **Linear iOS** — Inter Variable, tight tracking, 2 type sizes per screen max
-7. **Cash App** — massive numbers as hero, single-color brand discipline
+1. **Wealthsimple iOS** account screen. numeric hero + restraint
+2. **Atomato (Atomic Habits app)** Dribbble shots by Mateusz Madura. soft neutrals, tactile cards
+3. **Phantom Wallet** swap flow. spring sheets, rolling numbers
+4. **Duolingo** lesson completion. confetti + sound + haptic + scale bounce sequence
+5. **Arc Search** mobile. type-first, generous whitespace, single accent color
+6. **Linear iOS**. Inter Variable, tight tracking, 2 type sizes per screen max
+7. **Cash App**. massive numbers as hero, single-color brand discipline
 
 ## Real production apps using this stack
 
-- **Coinbase Wallet** (RN + Reanimated + Skia) — clears the Wealthsimple bar
+- **Coinbase Wallet** (RN + Reanimated + Skia). clears the Wealthsimple bar
 - **Shopify Shop** (RN + Reanimated + Skia, Shopify maintains Skia for RN)
 - **Bluesky** (Expo, open-source, production-grade architecture)
 - **Discord** (RN + Reanimated)

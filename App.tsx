@@ -1,12 +1,9 @@
-/**
- * BUD MVP — App entry.
- *
- * Real screens live in src/features/*/presentation/screens/. This file is the
- * navigation root. For MVP day 1, we render a placeholder LaunchScreen that
- * uses design tokens directly so we can confirm the theme is wired correctly.
- *
- * Routing migrates to expo-router once Phase 1 features start landing.
- */
+// BUD MVP. App entry.
+// Real screens live in src/features/<feature>/presentation/screens/.
+// This file is the navigation root. For MVP day 1, we render a placeholder
+// LaunchScreen that uses design tokens directly so we can confirm the theme
+// is wired correctly. Routing migrates to expo-router once Phase 1 features
+// start landing.
 
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
@@ -58,3 +55,4 @@ const styles = StyleSheet.create({
     lineHeight: tokens.type.sizes.base * tokens.type.lineHeight.normal,
   },
 });
+

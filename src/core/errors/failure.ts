@@ -1,5 +1,5 @@
 /**
- * Failure base class — domain-level error type.
+ * Failure base class - domain-level error type.
  *
  * Every repository contract returns `Result<T, Failure>` (or equivalent),
  * never throws. Datasources may throw; the repo boundary maps to Failure subtypes.

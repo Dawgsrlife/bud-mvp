@@ -1,5 +1,5 @@
 /**
- * AllergenProfile — the user's saved dietary restrictions.
+ * AllergenProfile - the user's saved dietary restrictions.
  *
  * SOLID: Single Responsibility. Just data shape + factories.
  */

@@ -1,5 +1,5 @@
 /**
- * Result type — Either<Success, Failure> equivalent.
+ * Result type - Either<Success, Failure> equivalent.
  *
  * Use this as the return type of every repository and use case.
  * Forces callers to handle the failure path explicitly. No silent throws.

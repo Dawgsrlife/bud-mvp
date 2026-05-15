@@ -1,5 +1,5 @@
 /**
- * Design tokens — the single source of truth for color, type, spacing, radii, motion.
+ * Design tokens - the single source of truth for color, type, spacing, radii, motion.
  * No hardcoded hex or px values anywhere else in the codebase.
  *
  * See docs/adr/0003-design-system-and-animation.md for the contract.
@@ -15,7 +15,7 @@ export const tokens = {
     inkMuted: '#6E6E6E',
     line: '#E5E5E5',
 
-    // Brand — BUD green. Signals safety + health.
+    // Brand - BUD green. Signals safety + health.
     brand: {
       50: '#F0F9F4',
       100: '#DCF1E6',
@@ -29,7 +29,7 @@ export const tokens = {
       900: '#062D18',
     },
 
-    // Accent — used ONLY for danger/avoid states. Never decorative.
+    // Accent - used ONLY for danger/avoid states. Never decorative.
     accent: {
       500: '#FF6B6B',
       600: '#E54545',

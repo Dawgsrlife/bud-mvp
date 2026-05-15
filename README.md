@@ -1,11 +1,11 @@
-# BUD MVP — mobile app
+# BUD MVP. mobile app
 
 The pre-launch BUD app. Camera → OCR → LLM verdict against the user's allergen profile.
 
 ## Repo location
 
 This directory is a **combo location**:
-- It is a **private GitHub repo** (`Dawgsrlife/bud-mvp`, TBD final name) — authoritative source, version control, PR reviews, CI/CD
+- It is a **private GitHub repo** (`Dawgsrlife/bud-mvp`, TBD final name). authoritative source, version control, PR reviews, CI/CD
 - It also lives **inside `zedsio-shared-vault/`** so Amir + Amir's Claude see the working tree live via Syncthing
 
 **Syncthing does NOT sync the `.git/` folder** (filtered by `.stignore`) to avoid git index corruption from concurrent filesystem writes across machines. GitHub is the source of truth for history. Syncthing is just a live mirror of the working tree.
@@ -29,7 +29,7 @@ Syncthing has already mirrored the working tree. To get the git authority too:
 
 ```bash
 cd ~/zedsio-shared-vault/programming/bud-mvp
-git init  # if .git not present (it won't be — excluded from sync)
+git init  # if .git not present (it won't be. excluded from sync)
 git remote add origin https://github.com/Dawgsrlife/bud-mvp.git
 git pull origin main
 ```
@@ -64,7 +64,7 @@ This codebase follows **SOLID principles** as concrete folder/file rules:
 1. **Single Responsibility:** one class per file, suffix denotes role (`*_screen`, `*_viewmodel`, `*_repository_impl`, `*_usecase`, `*_datasource`)
 2. **Open-Closed:** new features = new folder under `features/`. Never edit shipped feature folders to add capabilities.
 3. **Liskov Substitution:** all repository implementations honor the abstract contract shape exactly.
-4. **Interface Segregation:** split fat interfaces. `ScannerRepository`, `ProfileRepository`, `HistoryRepository` separately — not one mega `BudRepository`.
+4. **Interface Segregation:** split fat interfaces. `ScannerRepository`, `ProfileRepository`, `HistoryRepository` separately. not one mega `BudRepository`.
 5. **Dependency Inversion:** domain defines abstract repos. Data implements. Presentation depends on use cases, not implementations. DI container is the only place concrete meets abstract.
 
 See [`docs/code-quality.md`](docs/code-quality.md) for the full enforced rules.

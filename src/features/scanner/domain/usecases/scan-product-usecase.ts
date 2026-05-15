@@ -1,5 +1,5 @@
 /**
- * ScanProductUseCase — one business action.
+ * ScanProductUseCase - one business action.
  *
  * SOLID:
  * - Single Responsibility: orchestrates one scan flow.

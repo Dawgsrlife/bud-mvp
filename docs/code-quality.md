@@ -1,10 +1,10 @@
-# Code quality rules — BUD MVP
+# Code quality rules. BUD MVP
 
 This is the contract for every line of code that lands in the repo. UTM-grade quality. SOLID enforced.
 
 ## The 5 SOLID principles, as concrete folder/file rules
 
-### S — Single Responsibility
+### S. Single Responsibility
 
 **Rule:** one class per file. The file name + class name tell you exactly what it does.
 
@@ -13,7 +13,7 @@ This is the contract for every line of code that lands in the repo. UTM-grade qu
 | `*_screen` | full-screen UI widget | ViewModel + widgets only |
 | `*_viewmodel` | UI state + commands | UseCases only (no HTTP, no DTOs) |
 | `*_usecase` | one business action | Repository abstractions only |
-| `*_repository` | abstract contract (in domain/) | nothing — pure interface |
+| `*_repository` | abstract contract (in domain/) | nothing. pure interface |
 | `*_repository_impl` | concrete implementation (in data/) | DataSources only |
 | `*_datasource` | I/O boundary (HTTP, camera, OCR, DB) | external SDKs |
 | `*_model` | DTO with fromJson/toJson (in data/) | JSON |
@@ -21,7 +21,7 @@ This is the contract for every line of code that lands in the repo. UTM-grade qu
 
 **If a file holds two roles, split it.**
 
-### O — Open-Closed
+### O. Open-Closed
 
 **Rule:** new features go in new folders under `features/`. Never edit a shipped feature folder to add capabilities.
 
@@ -31,7 +31,7 @@ Examples:
 
 **Exception:** bug fixes inside the responsible feature folder. ADR-002 governs this.
 
-### L — Liskov Substitution
+### L. Liskov Substitution
 
 **Rule:** every implementation honors its abstract contract shape exactly.
 
@@ -41,20 +41,20 @@ abstract class ScannerRepository {
   Future<Either<Failure, Verdict>> scan(Uint8List imageBytes);
 }
 
-// data — implements with the SAME return shape
+// data. implements with the SAME return shape
 class ScannerRepositoryImpl implements ScannerRepository {
   @override
   Future<Either<Failure, Verdict>> scan(Uint8List imageBytes) async {
     try { ... return Right(verdict); }
     on NetworkException { return Left(NetworkFailure()); }
-    // NEVER throw — abstract contract says we return Either
+    // NEVER throw. abstract contract says we return Either
   }
 }
 ```
 
 **If a method throws when the abstract returns `Either`, you've violated LSP.**
 
-### I — Interface Segregation
+### I. Interface Segregation
 
 **Rule:** split fat interfaces. Each repository handles ONE domain concept.
 
@@ -63,7 +63,7 @@ class ScannerRepositoryImpl implements ScannerRepository {
 - ✅ `HistoryRepository` (past scan history only)
 - ❌ `BudRepository` (everything)
 
-### D — Dependency Inversion
+### D. Dependency Inversion
 
 **Rule:** dependencies point inward. Domain at the center, then data + presentation outside.
 
@@ -86,7 +86,7 @@ import '../../data/datasources/anthropic_datasource.dart';  // VIOLATION
 
 **Enforce with lint:** `import_lint` (Flutter) or ESLint `boundaries` plugin (RN). Configure in CI to fail PRs that cross layers.
 
-## Anti-patterns Claude Code commonly generates — reject these on review
+## Anti-patterns Claude Code commonly generates. reject these on review
 
 1. **God ViewModel with HTTP calls.** Fix: ViewModel only calls UseCases.
 2. **API keys in source code.** Fix: `.env` + `flutter_dotenv` / `react-native-config`, loaded in `core/config/`. `.env` is gitignored.

@@ -42,7 +42,7 @@ Pixel-identical cross-platform UI and frame-rate consistency on Android mid-rang
 | **Local storage** | `expo-secure-store` (profile/tokens) + `@react-native-async-storage/async-storage` (cache) + `expo-sqlite` (scan history once it grows) |
 | **Image processing** | `expo-image-manipulator` (resize/crop/rotate pre-OCR) |
 | **Claude SDK** | **HTTP-direct via Supabase Edge Function** (key held server-side, rate limits, logging, prompt caching). Never ship API key in-app. |
-| **UI primitives** | NativeWind (Tailwind for RN) — safer than Tamagui for vibe coding |
+| **UI primitives** | NativeWind (Tailwind for RN). safer than Tamagui for vibe coding |
 | **Errors / analytics** | Sentry + PostHog |
 
 ## Architecture pattern
