@@ -1,5 +1,5 @@
 // BUD MVP. App entry.
-// Root component. Routes between loading, onboarding, home, and scanner.
+// Root component. Routes between loading, onboarding, home, scanner, history.
 
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, SafeAreaView, StyleSheet, View } from 'react-native';
@@ -12,13 +12,15 @@ import { isOk } from './src/core/errors/result';
 import { OnboardingScreen } from './src/features/profile/presentation/screens/onboarding-screen';
 import { HomeScreen } from './src/features/scanner/presentation/screens/home-screen';
 import { ScannerScreen } from './src/features/scanner/presentation/screens/scanner-screen';
+import { HistoryScreen } from './src/features/history/presentation/screens/history-screen';
 import { PhoneFrame } from './src/shared/widgets/phone-frame';
 
 type Route =
   | { kind: 'loading' }
   | { kind: 'onboarding' }
   | { kind: 'home'; allergens: ReadonlyArray<string> }
-  | { kind: 'scanner'; allergens: ReadonlyArray<string> };
+  | { kind: 'scanner'; allergens: ReadonlyArray<string> }
+  | { kind: 'history'; allergens: ReadonlyArray<string> };
 
 export default function App() {
   const [route, setRoute] = useState<Route>({ kind: 'loading' });
@@ -55,6 +57,7 @@ export default function App() {
               <HomeScreen
                 allergenCount={route.allergens.length}
                 onScan={() => setRoute({ kind: 'scanner', allergens: route.allergens })}
+                onHistory={() => setRoute({ kind: 'history', allergens: route.allergens })}
                 onResetProfile={() => setRoute({ kind: 'onboarding' })}
               />
             )}
@@ -62,6 +65,12 @@ export default function App() {
               <ScannerScreen
                 allergens={route.allergens}
                 onBack={() => setRoute({ kind: 'home', allergens: route.allergens })}
+              />
+            )}
+            {route.kind === 'history' && (
+              <HistoryScreen
+                onBack={() => setRoute({ kind: 'home', allergens: route.allergens })}
+                onScan={() => setRoute({ kind: 'scanner', allergens: route.allergens })}
               />
             )}
           </SafeAreaView>

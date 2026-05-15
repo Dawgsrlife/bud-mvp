@@ -87,6 +87,22 @@ export function useScannerViewModel({ profile }: ViewModelInput): UseScannerView
 
     if (isOk(result)) {
       setState({ kind: 'verdict', verdict: result.value });
+      // Persist scan to local history. Best-effort; failing to write history
+      // never blocks the verdict UI.
+      try {
+        const appendUseCase = container.appendHistoryUseCase();
+        await appendUseCase.execute({
+          id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+          scannedAt: new Date().toISOString(),
+          verdictKind: result.value.kind,
+          verdictReason: result.value.reason,
+          triggeredAllergens: result.value.triggeredAllergens,
+          mayContainAllergens: result.value.mayContainAllergens,
+          confidence: result.value.confidence,
+        });
+      } catch {
+        // History persistence failures are non-fatal; the verdict still shows.
+      }
     } else {
       setState({ kind: 'error', message: result.failure.message });
     }

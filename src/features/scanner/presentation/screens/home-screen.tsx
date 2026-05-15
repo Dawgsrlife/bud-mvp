@@ -1,4 +1,4 @@
-// HomeScreen - the landing screen after onboarding. Now triggers the scanner.
+// HomeScreen - the landing screen after onboarding. Triggers the scanner + history.
 
 import { StyleSheet, Text, View } from 'react-native';
 import { tokens } from '../../../../core/theme/tokens';
@@ -8,16 +8,17 @@ import { Button } from '../../../../shared/widgets/button';
 interface HomeScreenProps {
   allergenCount: number;
   onScan: () => void;
+  onHistory: () => void;
   onResetProfile: () => void;
 }
 
-export function HomeScreen({ allergenCount, onScan, onResetProfile }: HomeScreenProps) {
+export function HomeScreen({ allergenCount, onScan, onHistory, onResetProfile }: HomeScreenProps) {
   return (
     <View style={styles.container}>
       <View style={styles.hero}>
         <BuddyMascot size={130} mood="idle" />
         <View style={styles.text}>
-          <Text style={[styles.eyebrow, styles.center]}>BUD</Text>
+          <Text style={[styles.eyebrow, styles.center]}>Bud</Text>
           <Text style={[styles.headline, styles.center]}>Ready when you are.</Text>
           <Text style={[styles.subhead, styles.center]}>
             {allergenCount === 0
@@ -29,6 +30,7 @@ export function HomeScreen({ allergenCount, onScan, onResetProfile }: HomeScreen
 
       <View style={styles.footer}>
         <Button label="Scan a product" onPress={onScan} fullWidth size="lg" />
+        <Button label="View history" onPress={onHistory} variant="secondary" fullWidth size="md" />
         <Button label="Reset profile" onPress={onResetProfile} variant="ghost" size="sm" />
       </View>
     </View>
@@ -58,11 +60,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   eyebrow: {
-    fontSize: tokens.type.sizes.sm,
-    fontWeight: tokens.type.weights.medium,
-    color: tokens.color.brand[600],
-    letterSpacing: 1.2,
-    textTransform: 'uppercase',
+    fontSize: tokens.type.sizes.lg,
+    fontWeight: tokens.type.weights.bold,
+    color: tokens.color.brand[500],
     fontFamily: tokens.type.family,
   },
   headline: {
