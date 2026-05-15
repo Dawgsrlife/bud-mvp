@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Color Ladder v1-v6 . Bud Design Book</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.ladder {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-top: 32px;
+}
+.variant {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.variant-bar {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.variant-bar h3 { font-size: 20px; font-weight: 600; margin: 0; color: inherit; font-family: 'Sora', sans-serif; }
+.variant-bar .verdict-status { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; }
+.variant-body {
+  padding: 32px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.variant-mock {
+  text-align: center;
+  padding: 24px 16px;
+  border-radius: 12px;
+}
+.variant-mock .mock-eyebrow { font-size: 14px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+.variant-mock .mock-mascot { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 16px; position: relative; }
+.variant-mock .mock-mascot::before,
+.variant-mock .mock-mascot::after { content: ''; position: absolute; width: 10px; height: 10px; border-radius: 50%; top: 32px; }
+.variant-mock .mock-mascot::before { left: 24px; }
+.variant-mock .mock-mascot::after { left: 46px; }
+.variant-mock .mock-headline { font-size: 24px; font-weight: 700; line-height: 1.15; margin-bottom: 8px; }
+.variant-mock .mock-subhead { font-size: 14px; }
+.variant-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+}
+.variant-meta .row { display: flex; gap: 8px; align-items: center; }
+.variant-meta .swatch-mini { width: 18px; height: 18px; border-radius: 4px; border: 1px solid var(--line); }
+.variant-meta code { font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+<aside class="toc">
+  <div class="brand-mark">bud</div>
+  <div class="subtitle">Design Book v6 · canonical</div>
+  <ul style="margin-top:24px"><li><a href="index.html">. Home</a></li></ul>
+  <div class="toc-part">Part I . Foundation</div>
+  <ul>
+    <li><a href="01-foundations.html">01. Foundations</a></li>
+    <li><a href="02-brand-strategy.html">02. Brand strategy</a></li>
+    <li><a href="03-voice-and-tone.html">03. Voice and tone</a></li>
+  </ul>
+  <div class="toc-part">Part II . Visual</div>
+  <ul>
+    <li><a href="04-logo.html">04. Logo</a></li>
+    <li><a href="05-color.html">05. Color</a></li>
+    <li><a href="06-typography.html">06. Typography</a></li>
+    <li><a href="07-iconography.html">07. Iconography</a></li>
+    <li><a href="08-motion.html">08. Motion</a></li>
+  </ul>
+  <div class="toc-part">Reference</div>
+  <ul>
+    <li><a href="color-ladder.html" class="active">Color ladder · v1-v6</a></li>
+    <li><a href="10-verdict.html">10. Verdict</a></li>
+  </ul>
+</aside>
+
+<main class="content">
+
+<div class="eyebrow">Color ladder</div>
+<h1>v1 through v6</h1>
+<p style="font-size:20px;color:var(--ink-soft);max-width:700px">Side-by-side preview of every brand color exploration. v6 (Amir canonical) is the live direction.</p>
+
+<div class="ladder">
+
+  <!-- v1 emerald -->
+  <div class="variant" style="background:#FAFAFA;color:#0A0A0A">
+    <div class="variant-bar" style="background:#fff;border-bottom:1px solid #E5E5E5">
+      <h3 style="color:#0A0A0A">v1 . Emerald (original)</h3>
+      <span style="font-size:12px;color:#6E6E6E">Yuka-adjacent safety green · cool off-white · Inter sans</span>
+    </div>
+    <div class="variant-body" style="background:#FAFAFA">
+      <div class="variant-mock" style="background:#fff">
+        <div class="mock-mascot" style="background:#5DBC85"></div>
+        <div class="mock-mascot::eyes"></div>
+        <div class="mock-eyebrow" style="color:#168A4A">BUD</div>
+        <div class="mock-headline" style="color:#0A0A0A">Hi. I'm Bud.</div>
+        <div class="mock-subhead" style="color:#3A3A3A">Point your phone at any product.</div>
+      </div>
+      <div class="variant-meta">
+        <div class="row"><span class="swatch-mini" style="background:#FAFAFA"></span><code>#FAFAFA</code> bg (cool)</div>
+        <div class="row"><span class="swatch-mini" style="background:#1FAB5C"></span><code>#1FAB5C</code> brand 500</div>
+        <div class="row"><span class="swatch-mini" style="background:#FF6B6B"></span><code>#FF6B6B</code> accent</div>
+        <div style="margin-top:8px;font-size:13px;color:#6E6E6E"><strong>Risk:</strong> reads close to Yuka. Brand confusion.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- v2 toronto deep -->
+  <div class="variant" style="background:#F7F7F4;color:#0E1410">
+    <div class="variant-bar" style="background:#fff;border-bottom:1px solid #E2E4DF">
+      <h3 style="color:#0E1410">v2 . Toronto Deep</h3>
+      <span style="font-size:12px;color:#5E6862">Evergreen + warm amber · calmer + clinical</span>
+    </div>
+    <div class="variant-body" style="background:#F7F7F4">
+      <div class="variant-mock" style="background:#fff">
+        <div class="mock-mascot" style="background:#4D8054"></div>
+        <div class="mock-eyebrow" style="color:#1F4A27">BUD</div>
+        <div class="mock-headline" style="color:#0E1410">Hi. I'm Bud.</div>
+        <div class="mock-subhead" style="color:#2D3530">Point your phone at any product.</div>
+      </div>
+      <div class="variant-meta">
+        <div class="row"><span class="swatch-mini" style="background:#F7F7F4"></span><code>#F7F7F4</code> bg</div>
+        <div class="row"><span class="swatch-mini" style="background:#2C6336"></span><code>#2C6336</code> brand 500</div>
+        <div class="row"><span class="swatch-mini" style="background:#D9854D"></span><code>#D9854D</code> warm amber</div>
+        <div style="margin-top:8px;font-size:13px;color:#5E6862"><strong>Pro:</strong> distinct from competitors. Premium-feel.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- v3 phantom mono -->
+  <div class="variant" style="background:#F6F5F2;color:#161513">
+    <div class="variant-bar" style="background:#fff;border-bottom:1px solid #E5E2DD">
+      <h3 style="color:#161513">v3 . Phantom Mono</h3>
+      <span style="font-size:12px;color:#7A766F">Monochrome ink + warm amber accent · maximum restraint</span>
+    </div>
+    <div class="variant-body" style="background:#F6F5F2">
+      <div class="variant-mock" style="background:#fff">
+        <div class="mock-mascot" style="background:#5F584F"></div>
+        <div class="mock-eyebrow" style="color:#0E0D0C">BUD</div>
+        <div class="mock-headline" style="color:#161513">Hi. I'm Bud.</div>
+        <div class="mock-subhead" style="color:#3A3733">Point your phone at any product.</div>
+      </div>
+      <div class="variant-meta">
+        <div class="row"><span class="swatch-mini" style="background:#F6F5F2"></span><code>#F6F5F2</code> bg</div>
+        <div class="row"><span class="swatch-mini" style="background:#161513"></span><code>#161513</code> brand ink</div>
+        <div class="row"><span class="swatch-mini" style="background:#E8A340"></span><code>#E8A340</code> amber accent</div>
+        <div style="margin-top:8px;font-size:13px;color:#7A766F"><strong>Vibe:</strong> Atomato territory. Premium SaaS energy.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- v4 wealthsimple cream -->
+  <div class="variant" style="background:#F2EEE5;color:#1A1112">
+    <div class="variant-bar" style="background:#FBF8F2;border-bottom:1px solid #E3DCCF">
+      <h3 style="color:#1A1112">v4 . Wealthsimple Cream</h3>
+      <span style="font-size:12px;color:#796366">Cream + deep plum + caramel · understated luxury</span>
+    </div>
+    <div class="variant-body" style="background:#F2EEE5">
+      <div class="variant-mock" style="background:#FBF8F2">
+        <div class="mock-mascot" style="background:#6E3F4A"></div>
+        <div class="mock-eyebrow" style="color:#371A24">BUD</div>
+        <div class="mock-headline" style="color:#1A1112">Hi. I'm Bud.</div>
+        <div class="mock-subhead" style="color:#3F2A2C">Point your phone at any product.</div>
+      </div>
+      <div class="variant-meta">
+        <div class="row"><span class="swatch-mini" style="background:#F2EEE5"></span><code>#F2EEE5</code> bg cream</div>
+        <div class="row"><span class="swatch-mini" style="background:#4A2530"></span><code>#4A2530</code> brand plum</div>
+        <div class="row"><span class="swatch-mini" style="background:#C28F4A"></span><code>#C28F4A</code> caramel</div>
+        <div style="margin-top:8px;font-size:13px;color:#796366"><strong>Risk:</strong> reads as luxury finance, not health.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- v5 amir website -->
+  <div class="variant" style="background:#F7F1E6;color:#1C2A22">
+    <div class="variant-bar" style="background:#F2EBDE;border-bottom:1px solid #DCD5C5">
+      <h3 style="color:#1C2A22">v5 . Amir Website (estimate)</h3>
+      <span style="font-size:12px;color:#6F7A6F">My first estimate from email screenshots · superseded by v6</span>
+    </div>
+    <div class="variant-body" style="background:#F7F1E6">
+      <div class="variant-mock" style="background:#F2EBDE">
+        <div class="mock-mascot" style="background:#3F6650"></div>
+        <div class="mock-eyebrow" style="color:#163826;font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:18px;text-transform:none;letter-spacing:0">Bud</div>
+        <div class="mock-headline" style="color:#1C2A22;font-family:'Fraunces',serif;font-style:italic;font-weight:700">Hi. I'm Bud.</div>
+        <div class="mock-subhead" style="color:#3D4A40">A second opinion at the shelf.</div>
+      </div>
+      <div class="variant-meta">
+        <div class="row"><span class="swatch-mini" style="background:#F7F1E6"></span><code>#F7F1E6</code> bg</div>
+        <div class="row"><span class="swatch-mini" style="background:#1F4A33"></span><code>#1F4A33</code> brand 500</div>
+        <div class="row"><span class="swatch-mini" style="background:#C68A2E"></span><code>#C68A2E</code> amber</div>
+        <div style="margin-top:8px;font-size:13px;color:#6F7A6F"><strong>Status:</strong> eyeballed estimate. Mascot too dark. v6 fixes.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- v6 amir canonical -->
+  <div class="variant" style="background:#fcf9f2;color:#1a1a1a;outline:3px solid #1d4433">
+    <div class="variant-bar" style="background:#f6f3ec;border-bottom:1px solid rgba(193,200,194,0.4)">
+      <h3 style="color:#1d4433;font-family:'Sora',sans-serif">v6 . Amir Canonical · LIVE</h3>
+      <span style="font-size:12px;color:#414844;font-family:'IBM Plex Mono',monospace">Exact hex from Amir's DESIGN-BOOK.md</span>
+    </div>
+    <div class="variant-body" style="background:#fcf9f2">
+      <div class="variant-mock" style="background:#f6f3ec">
+        <div class="mock-mascot" style="background:#bfd8c5">
+          <span style="position:absolute;width:10px;height:10px;border-radius:50%;background:#1d4433;top:32px;left:24px"></span>
+          <span style="position:absolute;width:10px;height:10px;border-radius:50%;background:#1d4433;top:32px;left:46px"></span>
+        </div>
+        <div class="mock-eyebrow" style="color:#1d4433;font-family:'Sora',sans-serif;font-weight:600">bud</div>
+        <div class="mock-headline" style="color:#1d4433;font-family:'Sora',sans-serif;font-weight:600">Hi. <em style="font-family:'Fraunces',serif;font-style:italic;font-weight:400">I'm Bud.</em></div>
+        <div class="mock-subhead" style="color:#1a1a1a">A second opinion at the shelf.</div>
+      </div>
+      <div class="variant-meta">
+        <div class="row"><span class="swatch-mini" style="background:#fcf9f2"></span><code>#fcf9f2</code> oat</div>
+        <div class="row"><span class="swatch-mini" style="background:#f6f3ec"></span><code>#f6f3ec</code> surface low</div>
+        <div class="row"><span class="swatch-mini" style="background:#bfd8c5"></span><code>#bfd8c5</code> sage mint</div>
+        <div class="row"><span class="swatch-mini" style="background:#1d4433"></span><code>#1d4433</code> deep sage</div>
+        <div class="row"><span class="swatch-mini" style="background:#c65a3d"></span><code>#c65a3d</code> terracotta</div>
+        <div style="margin-top:8px;font-size:13px;color:#414844"><strong>LIVE.</strong> Mascot: sage-mint body, deep-sage eyes. Wordmark: lowercase Sora. Tagline: Fraunces italic.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="callout" style="margin-top:32px">
+  <strong>The decision:</strong> v6 wins. Amir's DESIGN-BOOK.md is the canonical reference now. The eyes-invisible problem in v5 is fixed by putting deep-sage eyes on a sage-mint body. If you want to revisit, the variant files live at <code>src/core/theme/tokens-variants/v{1..6}*.ts</code> and the swap is one import line.
+</div>
+
+</main>
+</div>
+</body>
+</html>

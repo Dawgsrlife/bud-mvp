@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>08 . Motion + Interaction . Bud Design Book</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+<aside class="toc">
+  <div class="brand-mark">bud</div>
+  <div class="subtitle">Design Book v6 · canonical</div>
+  <ul style="margin-top:24px"><li><a href="index.html">. Home</a></li></ul>
+  <div class="toc-part">Part II . Visual</div>
+  <ul>
+    <li><a href="04-logo.html">04. Logo</a></li>
+    <li><a href="05-color.html">05. Color</a></li>
+    <li><a href="06-typography.html">06. Typography</a></li>
+    <li><a href="07-iconography.html">07. Iconography</a></li>
+    <li><a href="08-motion.html" class="active">08. Motion</a></li>
+  </ul>
+</aside>
+<main class="content">
+<div class="eyebrow">Chapter 08</div>
+<h1>Motion and interaction</h1>
+<p style="font-size:20px;color:var(--ink-soft);max-width:600px">Subtle and slow. Default ease over 300ms. No bouncy springs. No confetti.</p>
+
+<h2>Motion principles</h2>
+
+<div class="callout">
+  <strong>Subtle and slow.</strong> Default ease: <code>cubic-bezier(0.4, 0, 0.2, 1)</code> over 300ms.<br>
+  <strong>Floating animation</strong> for hero elements: vertical translate -12px over 4s, ease-in-out, infinite. Restrained.<br>
+  <strong>Pulse glow</strong> for primary CTAs only, never on secondary or tertiary. Sage glow, never green-neon.<br>
+  <strong>Fade-in-up on scroll</strong> for sections, stagger 0.1-0.5s between elements.<br>
+  <strong>No bouncy spring physics.</strong> No confetti. No micro-interactions that beg for attention.
+</div>
+
+<h2>Duration tokens</h2>
+
+<table>
+  <tr><th>Token</th><th>ms</th><th>Used for</th></tr>
+  <tr><td><code>durationFast</code></td><td>180</td><td>Press feedback color, status pill backgrounds</td></tr>
+  <tr><td><code>durationStandard</code></td><td>300</td><td>Step transitions, screen fades, default UI</td></tr>
+  <tr><td><code>durationSlow</code></td><td>600</td><td>Hero entries, dramatic verdict reveals</td></tr>
+</table>
+
+<h2>Easing</h2>
+<ul>
+  <li><strong>Standard:</strong> <code>cubic-bezier(0.4, 0, 0.2, 1)</code></li>
+  <li><strong>Ambient loops</strong> (mascot bob): <code>Easing.inOut(Easing.quad)</code></li>
+  <li><strong>Entries:</strong> <code>Easing.out(Easing.cubic)</code></li>
+  <li><strong>Banned:</strong> <code>Easing.linear</code>, <code>Easing.bounce</code></li>
+</ul>
+
+<h2>Verdict reveal cascade</h2>
+<table>
+  <tr><th>Element</th><th>Animation</th><th>Timing</th></tr>
+  <tr><td>Mascot</td><td>FadeIn 280ms</td><td>t = 0</td></tr>
+  <tr><td>Header (pill + headline + reason)</td><td>FadeInUp 320ms</td><td>t = 80ms</td></tr>
+  <tr><td>Detail card</td><td>SlideInDown 300ms</td><td>t = 160ms</td></tr>
+  <tr><td>CTA</td><td>mounts with parent</td><td>t = 0</td></tr>
+</table>
+
+<h2>Haptics map</h2>
+<table>
+  <tr><th>Haptic</th><th>When</th></tr>
+  <tr><td>selection</td><td>Toggle, chip press, nav tap</td></tr>
+  <tr><td>light</td><td>Default button press</td></tr>
+  <tr><td>medium</td><td>Shutter press, capture moment</td></tr>
+  <tr><td>heavy</td><td>Destructive confirm (reset profile, delete scan)</td></tr>
+  <tr><td>success</td><td>Compatible verdict shows</td></tr>
+  <tr><td>warning</td><td>Uncertain verdict shows</td></tr>
+  <tr><td>error</td><td>Avoid verdict shows</td></tr>
+</table>
+
+<h2>Skeleton loaders</h2>
+<p>Match the final layout shape. Shimmer left-to-right at 1.2s cycle. <strong>Never <code>ActivityIndicator</code> spinners</strong> in shipped UI.</p>
+
+<h2>Reduced motion</h2>
+<p>iOS + Android "Reduce Motion" system setting respected via <code>useReducedMotion()</code> from Reanimated:</p>
+<ul>
+  <li>Spring transitions degrade to instant</li>
+  <li>Fades shorten from 280ms to 120ms</li>
+  <li>Bob animation pauses</li>
+  <li>Confetti suppressed</li>
+</ul>
+
+</main>
+</div>
+</body>
+</html>
