@@ -24,6 +24,9 @@ export function ScannerScreen({ allergens, onBack }: ScannerScreenProps) {
 
   return (
     <View style={styles.container}>
+      {vm.state.kind === 'permission-prompt' && (
+        <PermissionPromptState onGrant={vm.requestPermission} onBack={onBack} />
+      )}
       {vm.state.kind === 'permission-loading' && <PermissionLoadingState />}
       {vm.state.kind === 'permission-denied' && (
         <PermissionDeniedState onRetry={vm.requestPermission} onBack={onBack} />
@@ -44,6 +47,29 @@ export function ScannerScreen({ allergens, onBack }: ScannerScreenProps) {
       {vm.state.kind === 'error' && (
         <ErrorState message={vm.state.message} onRetry={vm.resetToIdle} onBack={onBack} />
       )}
+    </View>
+  );
+}
+
+function PermissionPromptState({
+  onGrant,
+  onBack,
+}: {
+  onGrant: () => void;
+  onBack: () => void;
+}) {
+  return (
+    <View style={styles.centerState}>
+      <BuddyMascot size={100} mood="idle" />
+      <Text style={styles.stateEyebrow}>CAMERA</Text>
+      <Text style={styles.stateHeadline}>Ready to look?</Text>
+      <Text style={styles.stateBody}>
+        I'll need your camera to read package labels. Tap below to allow.
+      </Text>
+      <View style={styles.stateActions}>
+        <Button label="Allow camera" onPress={onGrant} fullWidth size="lg" />
+        <Button label="Back" onPress={onBack} variant="ghost" size="sm" />
+      </View>
     </View>
   );
 }

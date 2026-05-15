@@ -10,6 +10,7 @@ import type { Verdict } from '../../domain/entities/verdict';
 import { isOk } from '../../../../core/errors/result';
 
 export type ScannerState =
+  | { kind: 'permission-prompt' }
   | { kind: 'permission-loading' }
   | { kind: 'permission-denied' }
   | { kind: 'idle' }
@@ -33,20 +34,28 @@ interface ViewModelInput {
 }
 
 export function useScannerViewModel({ profile }: ViewModelInput): UseScannerViewModel {
-  const [state, setState] = useState<ScannerState>({ kind: 'permission-loading' });
+  // Initial state shows a "Tap to grant" prompt. Browsers require a user gesture
+  // before the permission dialog will open; auto-requesting on mount silently fails.
+  const [state, setState] = useState<ScannerState>({ kind: 'permission-prompt' });
   const cameraRef = useRef<unknown>(null);
 
   useEffect(() => {
     void (async () => {
+      // Check existing permission without prompting. If already granted, go straight to idle.
       const permission = await cameraDataSource.getPermission();
-      applyPermission(permission);
+      if (permission === 'granted') {
+        setState({ kind: 'idle' });
+      } else if (permission === 'denied') {
+        setState({ kind: 'permission-denied' });
+      }
+      // Otherwise stay on permission-prompt so user taps the CTA.
     })();
   }, []);
 
   const applyPermission = (permission: CameraPermission) => {
     if (permission === 'granted') setState({ kind: 'idle' });
     else if (permission === 'denied') setState({ kind: 'permission-denied' });
-    else setState({ kind: 'permission-loading' });
+    else setState({ kind: 'permission-prompt' });
   };
 
   const requestPermission = useCallback(async () => {
