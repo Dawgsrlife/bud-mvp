@@ -1,29 +1,38 @@
-// ScannerViewModel - holds camera permission state + capture state.
-// Slice 3 scope: permission, viewfinder open, capture-button press feedback, captured/retake states.
-// Slice 4 will add OCR + verdict; slice 5 wires Claude.
+// ScannerViewModel - holds camera permission, capture state, and the scan-to-verdict transition.
+// Slice 4 wires in the ScanProductUseCase so capture produces a Verdict.
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { container } from '../../../../core/di/container';
 import { CameraDataSource } from '../../data/datasources/camera-datasource';
 import type { CameraPermission } from '../../data/datasources/camera-datasource';
+import { AllergenProfile } from '../../domain/entities/allergen-profile';
+import type { Verdict } from '../../domain/entities/verdict';
+import { isOk } from '../../../../core/errors/result';
 
 export type ScannerState =
   | { kind: 'permission-loading' }
   | { kind: 'permission-denied' }
   | { kind: 'idle' }
   | { kind: 'capturing' }
-  | { kind: 'captured'; uri: string };
+  | { kind: 'reading' }
+  | { kind: 'verdict'; verdict: Verdict }
+  | { kind: 'error'; message: string };
 
 interface UseScannerViewModel {
   state: ScannerState;
   cameraRef: React.RefObject<unknown>;
   requestPermission: () => Promise<void>;
   capture: () => Promise<void>;
-  retake: () => void;
+  resetToIdle: () => void;
 }
 
 const cameraDataSource = new CameraDataSource();
 
-export function useScannerViewModel(): UseScannerViewModel {
+interface ViewModelInput {
+  profile: AllergenProfile;
+}
+
+export function useScannerViewModel({ profile }: ViewModelInput): UseScannerViewModel {
   const [state, setState] = useState<ScannerState>({ kind: 'permission-loading' });
   const cameraRef = useRef<unknown>(null);
 
@@ -47,22 +56,36 @@ export function useScannerViewModel(): UseScannerViewModel {
   }, []);
 
   const capture = useCallback(async () => {
-    const ref = cameraRef.current as
-      | { takePictureAsync?: (opts?: { quality?: number }) => Promise<{ uri: string }> }
-      | null;
-    if (!ref?.takePictureAsync) return;
+    // On web there's no real camera; we still walk through capturing -> reading -> verdict for design preview.
     setState({ kind: 'capturing' });
-    try {
-      const photo = await ref.takePictureAsync({ quality: 0.8 });
-      setState({ kind: 'captured', uri: photo.uri });
-    } catch {
-      setState({ kind: 'idle' });
-    }
-  }, []);
 
-  const retake = useCallback(() => {
+    // Optionally call the real takePictureAsync if available, then read bytes later.
+    // For now we don't need actual bytes since OCR is mocked.
+    try {
+      const ref = cameraRef.current as
+        | { takePictureAsync?: (opts?: { quality?: number }) => Promise<{ uri: string }> }
+        | null;
+      if (ref?.takePictureAsync) {
+        await ref.takePictureAsync({ quality: 0.8 });
+      }
+    } catch {
+      // Ignore - mocked path doesn't care
+    }
+
+    setState({ kind: 'reading' });
+    const scan = container.scanProductUseCase();
+    const result = await scan.execute([], profile);
+
+    if (isOk(result)) {
+      setState({ kind: 'verdict', verdict: result.value });
+    } else {
+      setState({ kind: 'error', message: result.failure.message });
+    }
+  }, [profile]);
+
+  const resetToIdle = useCallback(() => {
     setState({ kind: 'idle' });
   }, []);
 
-  return { state, cameraRef, requestPermission, capture, retake };
+  return { state, cameraRef, requestPermission, capture, resetToIdle };
 }

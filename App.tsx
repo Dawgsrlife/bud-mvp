@@ -17,8 +17,8 @@ import { PhoneFrame } from './src/shared/widgets/phone-frame';
 type Route =
   | { kind: 'loading' }
   | { kind: 'onboarding' }
-  | { kind: 'home'; allergenCount: number }
-  | { kind: 'scanner'; allergenCount: number };
+  | { kind: 'home'; allergens: ReadonlyArray<string> }
+  | { kind: 'scanner'; allergens: ReadonlyArray<string> };
 
 export default function App() {
   const [route, setRoute] = useState<Route>({ kind: 'loading' });
@@ -27,7 +27,7 @@ export default function App() {
     const loadUseCase = container.loadProfileUseCase();
     const result = await loadUseCase.execute();
     if (isOk(result) && result.value.allergens.length > 0) {
-      setRoute({ kind: 'home', allergenCount: result.value.allergens.length });
+      setRoute({ kind: 'home', allergens: result.value.allergens });
     } else {
       setRoute({ kind: 'onboarding' });
     }
@@ -53,19 +53,15 @@ export default function App() {
             )}
             {route.kind === 'home' && (
               <HomeScreen
-                allergenCount={route.allergenCount}
-                onScan={() =>
-                  setRoute({ kind: 'scanner', allergenCount: route.allergenCount })
-                }
+                allergenCount={route.allergens.length}
+                onScan={() => setRoute({ kind: 'scanner', allergens: route.allergens })}
                 onResetProfile={() => setRoute({ kind: 'onboarding' })}
               />
             )}
             {route.kind === 'scanner' && (
               <ScannerScreen
-                allergenCount={route.allergenCount}
-                onBack={() =>
-                  setRoute({ kind: 'home', allergenCount: route.allergenCount })
-                }
+                allergens={route.allergens}
+                onBack={() => setRoute({ kind: 'home', allergens: route.allergens })}
               />
             )}
           </SafeAreaView>

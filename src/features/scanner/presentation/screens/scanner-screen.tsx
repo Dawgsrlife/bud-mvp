@@ -1,7 +1,7 @@
-// ScannerScreen - the camera + capture experience.
-// States: permission-loading, permission-denied, idle (viewfinder), capturing, captured (review).
+// ScannerScreen - the camera + capture + verdict experience.
+// State machine: permission -> idle -> capturing -> reading -> verdict (or error).
 
-import { Image, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { CameraView } from 'expo-camera';
 import { tokens } from '../../../../core/theme/tokens';
@@ -10,14 +10,17 @@ import { BuddyMascot } from '../../../../shared/widgets/buddy-mascot';
 import { ShutterButton } from '../widgets/shutter-button';
 import { ViewfinderOverlay } from '../widgets/viewfinder-overlay';
 import { useScannerViewModel } from '../viewmodels/use-scanner-viewmodel';
+import { VerdictScreen } from './verdict-screen';
+import { AllergenProfile } from '../../domain/entities/allergen-profile';
 
 interface ScannerScreenProps {
-  allergenCount: number;
+  allergens: ReadonlyArray<string>;
   onBack: () => void;
 }
 
-export function ScannerScreen({ allergenCount, onBack }: ScannerScreenProps) {
-  const vm = useScannerViewModel();
+export function ScannerScreen({ allergens, onBack }: ScannerScreenProps) {
+  const profile = AllergenProfile.withAllergens(allergens);
+  const vm = useScannerViewModel({ profile });
 
   return (
     <View style={styles.container}>
@@ -25,17 +28,21 @@ export function ScannerScreen({ allergenCount, onBack }: ScannerScreenProps) {
       {vm.state.kind === 'permission-denied' && (
         <PermissionDeniedState onRetry={vm.requestPermission} onBack={onBack} />
       )}
-      {(vm.state.kind === 'idle' || vm.state.kind === 'capturing') && (
+      {(vm.state.kind === 'idle' || vm.state.kind === 'capturing' || vm.state.kind === 'reading') && (
         <ViewfinderState
-          allergenCount={allergenCount}
-          isCapturing={vm.state.kind === 'capturing'}
+          allergenCount={allergens.length}
+          isBusy={vm.state.kind !== 'idle'}
+          busyLabel={vm.state.kind === 'reading' ? 'Reading...' : 'Capturing...'}
           onCapture={vm.capture}
           onBack={onBack}
           cameraRef={vm.cameraRef as React.RefObject<CameraView>}
         />
       )}
-      {vm.state.kind === 'captured' && (
-        <CapturedState uri={vm.state.uri} onRetake={vm.retake} onAccept={() => {}} />
+      {vm.state.kind === 'verdict' && (
+        <VerdictScreen verdict={vm.state.verdict} onScanAgain={vm.resetToIdle} />
+      )}
+      {vm.state.kind === 'error' && (
+        <ErrorState message={vm.state.message} onRetry={vm.resetToIdle} onBack={onBack} />
       )}
     </View>
   );
@@ -67,15 +74,40 @@ function PermissionDeniedState({ onRetry, onBack }: { onRetry: () => void; onBac
   );
 }
 
+function ErrorState({
+  message,
+  onRetry,
+  onBack,
+}: {
+  message: string;
+  onRetry: () => void;
+  onBack: () => void;
+}) {
+  return (
+    <View style={styles.centerState}>
+      <BuddyMascot size={100} mood="warning" />
+      <Text style={styles.stateEyebrow}>HMM</Text>
+      <Text style={styles.stateHeadline}>That didn't work.</Text>
+      <Text style={styles.stateBody}>{message}</Text>
+      <View style={styles.stateActions}>
+        <Button label="Try again" onPress={onRetry} fullWidth size="lg" />
+        <Button label="Back" onPress={onBack} variant="ghost" size="sm" />
+      </View>
+    </View>
+  );
+}
+
 function ViewfinderState({
   allergenCount,
-  isCapturing,
+  isBusy,
+  busyLabel,
   onCapture,
   onBack,
   cameraRef,
 }: {
   allergenCount: number;
-  isCapturing: boolean;
+  isBusy: boolean;
+  busyLabel: string;
   onCapture: () => void;
   onBack: () => void;
   cameraRef: React.RefObject<CameraView>;
@@ -84,74 +116,37 @@ function ViewfinderState({
 
   return (
     <View style={styles.viewfinderRoot}>
-      {/* Camera surface (or web placeholder) */}
       {isWeb ? (
         <View style={styles.webCameraPlaceholder}>
           <BuddyMascot size={90} mood="idle" />
           <Text style={styles.webCameraText}>Camera preview</Text>
           <Text style={styles.webCameraSubtext}>
-            Live camera shows on iOS + Android. Tap the shutter to simulate capture.
+            Live camera shows on iOS + Android. Tap the shutter to simulate a scan.
           </Text>
         </View>
       ) : (
         <CameraView ref={cameraRef} style={StyleSheet.absoluteFill} facing="back" />
       )}
 
-      <ViewfinderOverlay hint={`Center the label . watching ${allergenCount} allergens`} />
+      <ViewfinderOverlay hint={`Center the label . ${allergenCount} on watch`} />
 
-      {/* Top bar */}
       <View style={styles.topBar}>
         <Pressable onPress={onBack} hitSlop={12} style={styles.iconButton}>
           <Text style={styles.iconButtonText}>Back</Text>
         </Pressable>
       </View>
 
-      {/* Bottom shutter row */}
       <View style={styles.shutterRow}>
-        <ShutterButton onPress={onCapture} busy={isCapturing} />
-        {isCapturing && (
+        <ShutterButton onPress={onCapture} busy={isBusy} disabled={isBusy} />
+        {isBusy && (
           <Animated.View
             entering={FadeIn.duration(150)}
             exiting={FadeOut.duration(150)}
             style={styles.capturingBadge}
           >
-            <Text style={styles.capturingBadgeText}>Reading.</Text>
+            <Text style={styles.capturingBadgeText}>{busyLabel}</Text>
           </Animated.View>
         )}
-      </View>
-    </View>
-  );
-}
-
-function CapturedState({
-  uri,
-  onRetake,
-  onAccept,
-}: {
-  uri: string;
-  onRetake: () => void;
-  onAccept: () => void;
-}) {
-  const isWeb = Platform.OS === 'web';
-  return (
-    <View style={styles.capturedRoot}>
-      {isWeb || !uri ? (
-        <View style={styles.capturedWebPlaceholder}>
-          <BuddyMascot size={90} mood="thinking" />
-          <Text style={styles.webCameraText}>Captured (web simulated)</Text>
-        </View>
-      ) : (
-        <Image source={{ uri }} style={styles.capturedImage} resizeMode="cover" />
-      )}
-      <View style={styles.capturedFooter}>
-        <Text style={styles.capturedHeadline}>Looks good?</Text>
-        <Text style={styles.capturedSub}>Slice 4 will hand this off to the verdict engine.</Text>
-        <View style={styles.capturedActions}>
-          <Button label="Retake" onPress={onRetake} variant="secondary" size="lg" />
-          <View style={styles.capturedSpacer}>
-            <Button label="Use this" onPress={onAccept} fullWidth size="lg" />
-          </View>
-        </View>
       </View>
     </View>
   );
@@ -263,43 +258,5 @@ const styles = StyleSheet.create({
     fontSize: tokens.type.sizes.sm,
     fontWeight: tokens.type.weights.medium,
     fontFamily: tokens.type.family,
-  },
-  capturedRoot: {
-    flex: 1,
-    backgroundColor: tokens.color.bg,
-  },
-  capturedImage: {
-    flex: 1,
-  },
-  capturedWebPlaceholder: {
-    flex: 1,
-    backgroundColor: '#1A1A1A',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: tokens.space[2],
-  },
-  capturedFooter: {
-    padding: tokens.space[5],
-    gap: tokens.space[2],
-    backgroundColor: tokens.color.bg,
-  },
-  capturedHeadline: {
-    fontSize: tokens.type.sizes.xl,
-    fontWeight: tokens.type.weights.bold,
-    color: tokens.color.ink,
-    fontFamily: tokens.type.family,
-  },
-  capturedSub: {
-    fontSize: tokens.type.sizes.base,
-    color: tokens.color.inkSoft,
-    fontFamily: tokens.type.family,
-  },
-  capturedActions: {
-    flexDirection: 'row',
-    gap: tokens.space[2],
-    paddingTop: tokens.space[3],
-  },
-  capturedSpacer: {
-    flex: 1,
   },
 });
