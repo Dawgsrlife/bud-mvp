@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>06 . Typography . BUD Brand Book</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+
+<aside class="toc">
+  <div class="brand-mark">BUD</div>
+  <div class="subtitle">Brand Book v4</div>
+  <ul style="margin-top:24px"><li><a href="index.html">. Home</a></li></ul>
+  <div class="toc-part">Part II . Visual</div>
+  <ul>
+    <li><a href="04-logo.html">04. Logo</a></li>
+    <li><a href="05-color.html">05. Color</a></li>
+    <li><a href="06-typography.html" class="active">06. Typography</a></li>
+    <li><a href="07-iconography.html">07. Iconography</a></li>
+    <li><a href="08-motion.html">08. Motion</a></li>
+  </ul>
+</aside>
+
+<main class="content">
+
+<div class="eyebrow">Chapter 06</div>
+<h1>Typography</h1>
+<p style="font-size:20px;color:var(--ink-soft);">Inter Variable. Six sizes. Three weights. Discipline beats variety.</p>
+
+<h2>The family</h2>
+<p><strong>Inter Variable</strong> for body and UI. Inter Display for hero numbers. Free, open-source, geometric, modern, wide language support (covers French for Canadian labeling).</p>
+
+<h2>The scale</h2>
+
+<table>
+  <tr><th>Token</th><th>Size</th><th>Sample</th><th>Used for</th></tr>
+  <tr><td><code>xs</code></td><td>12 px</td><td style="font-size:12px;color:var(--ink)">The buddy you always needed</td><td>Status pill labels, tags</td></tr>
+  <tr><td><code>sm</code></td><td>14 px</td><td style="font-size:14px;color:var(--ink)">The buddy you always needed</td><td>Eyebrow labels, helpers</td></tr>
+  <tr><td><code>base</code></td><td>16 px</td><td style="font-size:16px;color:var(--ink)">The buddy you always needed</td><td>Body text, button text</td></tr>
+  <tr><td><code>lg</code></td><td>20 px</td><td style="font-size:20px;color:var(--ink)">The buddy you always needed</td><td>Subheads, card titles</td></tr>
+  <tr><td><code>xl</code></td><td>28 px</td><td style="font-size:28px;color:var(--ink);font-weight:700">The buddy</td><td>Screen titles</td></tr>
+  <tr><td><code>2xl</code></td><td>40 px</td><td style="font-size:40px;color:var(--ink);font-weight:700;letter-spacing:-0.8px">The buddy</td><td>Hero, verdict announce</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>No 18, 22, 24, 32, 36, 48, 64.</strong> Tempting but forbidden.
+</div>
+
+<h2>The weights</h2>
+
+<table>
+  <tr><th>Token</th><th>Weight</th><th>Sample</th><th>Used for</th></tr>
+  <tr><td><code>regular</code></td><td>400</td><td style="font-weight:400">Hand-on-shoulder warmth</td><td>Body, secondary text</td></tr>
+  <tr><td><code>medium</code></td><td>500</td><td style="font-weight:500">Hand-on-shoulder warmth</td><td>Labels, buttons, emphasis</td></tr>
+  <tr><td><code>bold</code></td><td>700</td><td style="font-weight:700">Hand-on-shoulder warmth</td><td>Headlines, hero, verdict</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>No 300, 600, 900.</strong> Even when "it looks cooler." Weight 700 carries hero.
+</div>
+
+<h2>Hierarchy patterns</h2>
+
+<h3>Hero composition (welcome, home, verdict)</h3>
+<div style="background:var(--surface);padding:24px;border-radius:12px;border:1px solid var(--line);max-width:400px;margin-bottom:24px">
+  <div style="font-size:14px;font-weight:500;color:var(--brand-600);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px">BUD</div>
+  <div style="font-size:40px;font-weight:700;letter-spacing:-0.8px;color:var(--ink);line-height:1.15;margin-bottom:8px">Eat freely.</div>
+  <div style="font-size:20px;color:var(--ink-soft);line-height:1.5">Clean for you. No allergens on your profile.</div>
+</div>
+
+<h3>Section header</h3>
+<div style="background:var(--surface);padding:24px;border-radius:12px;border:1px solid var(--line);max-width:400px;margin-bottom:24px">
+  <div style="font-size:12px;font-weight:500;color:var(--ink-muted);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:8px">DETECTED</div>
+  <div style="font-size:28px;font-weight:700;color:var(--ink);line-height:1.2;margin-bottom:8px">Three allergens flagged.</div>
+  <div style="font-size:16px;color:var(--ink-soft);line-height:1.5">Tap any tag for the source ingredient.</div>
+</div>
+
+<h3>Card row</h3>
+<div style="background:var(--surface);padding:24px;border-radius:12px;border:1px solid var(--line);max-width:400px">
+  <div style="font-size:12px;font-weight:500;color:var(--ink-muted);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px">CONFIDENCE</div>
+  <div style="font-size:16px;font-weight:500;color:var(--ink)">93%</div>
+</div>
+
+<h2>Line heights + letter spacing</h2>
+
+<table>
+  <tr><th>Context</th><th>Line height</th><th>Letter spacing</th></tr>
+  <tr><td>Headlines</td><td>1.2 (tight)</td><td>-0.02em (tight)</td></tr>
+  <tr><td>Body, subheads</td><td>1.5 (normal)</td><td>0</td></tr>
+  <tr><td>Long-form content</td><td>1.6 (loose)</td><td>0</td></tr>
+  <tr><td>All-caps eyebrow labels</td><td>1.5</td><td>+1.2 (looser, breathing)</td></tr>
+</table>
+
+<h2>Banned</h2>
+<ul>
+  <li>Italic (use weight for emphasis)</li>
+  <li>Underline (except explicit links)</li>
+  <li>Mixing serif + sans (Inter only)</li>
+  <li>Font sizes between scale steps</li>
+  <li>Weight 300 or 900</li>
+  <li>All-caps body text</li>
+</ul>
+
+</main>
+</div>
+</body>
+</html>

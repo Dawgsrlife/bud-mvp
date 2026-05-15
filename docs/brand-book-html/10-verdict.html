@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>10 . Verdict design . BUD Brand Book</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+
+<aside class="toc">
+  <div class="brand-mark">BUD</div>
+  <div class="subtitle">Brand Book v4</div>
+  <ul style="margin-top:24px"><li><a href="index.html">. Home</a></li></ul>
+  <div class="toc-part">Part III . Product</div>
+  <ul><li><a href="10-verdict.html" class="active">10. Verdict design</a></li></ul>
+</aside>
+
+<main class="content">
+
+<div class="eyebrow">Chapter 10</div>
+<h1>Verdict design</h1>
+<p style="font-size:20px;color:var(--ink-soft);">The single highest-stakes surface in the entire product. Every other screen sets it up.</p>
+
+<h2>The three states</h2>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px">
+
+  <div style="background:var(--surface);padding:24px;border-radius:12px;border:1px solid var(--line);text-align:center">
+    <span class="tone-pill compatible"><span class="dot"></span>COMPATIBLE</span>
+    <div style="font-size:28px;font-weight:700;color:var(--ink);margin-top:16px;line-height:1.2">Eat freely.</div>
+    <div style="font-size:14px;color:var(--ink-soft);margin-top:8px">Clean for you.</div>
+  </div>
+
+  <div style="background:var(--surface);padding:24px;border-radius:12px;border:1px solid var(--line);text-align:center">
+    <span class="tone-pill caution"><span class="dot"></span>CAUTION</span>
+    <div style="font-size:28px;font-weight:700;color:var(--ink);margin-top:16px;line-height:1.2">Your call.</div>
+    <div style="font-size:14px;color:var(--ink-soft);margin-top:8px">May contain tree nuts.</div>
+  </div>
+
+  <div style="background:var(--surface);padding:24px;border-radius:12px;border:1px solid var(--line);text-align:center">
+    <span class="tone-pill avoid"><span class="dot"></span>AVOID</span>
+    <div style="font-size:28px;font-weight:700;color:var(--ink);margin-top:16px;line-height:1.2">Skip this.</div>
+    <div style="font-size:14px;color:var(--ink-soft);margin-top:8px">Contains peanut.</div>
+  </div>
+
+</div>
+
+<h2>The layout (locked)</h2>
+
+<p>Single layout for all three kinds. Only headline word, accent color, and mascot mood change. Users learn one screen.</p>
+
+<pre><code>+------------------------------+
+|         [Bud mascot]         |
+|      (size 120, centered)    |
+|                              |
+|       > TONE PILL <          |
+|      "Eat freely."           |  Hero (Inter Bold 2xl, ink, tight)
+|   "Clean for you."           |  Reason (Inter Regular lg, ink-soft)
++------------------------------+
+|  +------------------------+  |
+|  | DETECTED               |  | Card (surface + line border)
+|  |   [Peanut] [Soy]       |  |   each tag: pill, accent-colored border + text
+|  |                        |  |
+|  | MAY CONTAIN            |  |
+|  |   [Tree nuts]          |  |
+|  |                        |  |
+|  | CONFIDENCE             |  |
+|  | 93%                    |  |
+|  +------------------------+  |
+|                              |
+|  +------------------------+  |
+|  |      Scan another      |  | Primary CTA
+|  +------------------------+  |
++------------------------------+</code></pre>
+
+<h2>Tone pill anatomy</h2>
+
+<div class="callout">
+  <strong>Background:</strong> accent color at 10% opacity (rgba ending in 1A)<br>
+  <strong>Border:</strong> accent color at 25% opacity (rgba ending in 40)<br>
+  <strong>Dot:</strong> 6px circle in accent color<br>
+  <strong>Label:</strong> all-caps, xs, weight 700, +1.2 letter-spacing, in accent color<br>
+  <strong>Padding:</strong> 8 horizontal, 4 vertical
+</div>
+
+<h2>Why NOT a status-color flood</h2>
+
+<p>Yuka floods red/yellow/green across the entire screen. It works for them, but:</p>
+<ol>
+  <li>It feels alarming. BUD's brand is calm.</li>
+  <li>It's the number-one visual feature an AI-slop generator would produce.</li>
+  <li>It looks the same as MyFitnessPal, FoodieScore, every other 2020s health app.</li>
+  <li>It violates our 85% neutral color discipline.</li>
+</ol>
+
+<p>BUD's restrained card pattern is harder, more designed, and more trustworthy. Wealthsimple's "your portfolio is down" screen doesn't turn red. It shows a small red number. We do the same.</p>
+
+<h2>Motion choreography</h2>
+
+<table>
+  <tr><th>Element</th><th>Animation</th><th>Timing</th></tr>
+  <tr><td>Mascot</td><td>FadeIn 280ms</td><td>t = 0</td></tr>
+  <tr><td>Header block (pill + headline + reason)</td><td>FadeInUp 320ms</td><td>t = 80ms</td></tr>
+  <tr><td>Detail card</td><td>SlideInDown 300ms</td><td>t = 160ms</td></tr>
+  <tr><td>CTA</td><td>mounts with parent</td><td>t = 0</td></tr>
+</table>
+
+<p>Creates a cascade: mascot appears, headline rises, card drops in. Reads as composed, not jumpy. Same pattern Phantom Wallet uses for swap confirmations.</p>
+
+<h2>Haptics</h2>
+
+<table>
+  <tr><th>Verdict</th><th>Haptic</th></tr>
+  <tr><td>compatible</td><td><code>success</code> (light-medium-light double tap)</td></tr>
+  <tr><td>caution</td><td><code>warning</code> (single medium tap)</td></tr>
+  <tr><td>avoid</td><td><code>error</code> (double heavy tap)</td></tr>
+  <tr><td>unknown</td><td>(none)</td></tr>
+</table>
+
+<h2>Copy patterns</h2>
+
+<p>Reasons should be specific and short. The user has 2 seconds to read this on the way out of the grocery aisle.</p>
+
+<table>
+  <tr><th>Verdict</th><th>Pattern</th><th>Example</th></tr>
+  <tr><td>compatible</td><td>"Clean for you."</td><td>"Clean for you." or "No allergens on your profile."</td></tr>
+  <tr><td>avoid</td><td>"Contains X."</td><td>"Contains peanut." / "Contains milk, soy."</td></tr>
+  <tr><td>caution</td><td>"May contain X."</td><td>"May contain tree nuts."</td></tr>
+  <tr><td>unknown</td><td>Honest about why</td><td>"I couldn't read the label clearly. Try a different angle?"</td></tr>
+</table>
+
+<div class="callout warning">
+  <strong>Never add filler.</strong> Not "Unfortunately, this contains peanut." Not "Looks like this might be okay." Cut the qualifier.
+</div>
+
+</main>
+</div>
+</body>
+</html>

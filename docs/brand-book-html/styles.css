@@ -1,0 +1,415 @@
+/* BUD brand book styles. Mirrors the live app design tokens. */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+:root {
+  --bg: #FAFAFA;
+  --surface: #FFFFFF;
+  --ink: #0A0A0A;
+  --ink-soft: #3A3A3A;
+  --ink-muted: #6E6E6E;
+  --line: #E5E5E5;
+  --brand-50:  #F0F9F4;
+  --brand-100: #DCF1E6;
+  --brand-400: #5DBC85;
+  --brand-500: #1FAB5C;
+  --brand-600: #168A4A;
+  --brand-700: #106A39;
+  --accent-500: #FF6B6B;
+  --status-ok: #1FAB5C;
+  --status-warn: #F59E0B;
+  --status-danger: #DC2626;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-8: 48px;
+  --space-10: 64px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+}
+
+aside.toc {
+  background: var(--surface);
+  border-right: 1px solid var(--line);
+  padding: var(--space-5);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+aside.toc h1 {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--brand-600);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+
+aside.toc .brand-mark {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  color: var(--ink);
+  margin-bottom: var(--space-2);
+}
+
+aside.toc .subtitle {
+  font-size: 14px;
+  color: var(--ink-muted);
+  margin-bottom: var(--space-5);
+}
+
+aside.toc ul {
+  list-style: none;
+}
+
+aside.toc li {
+  margin-bottom: var(--space-2);
+}
+
+aside.toc a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 8px;
+  display: block;
+  border-radius: var(--radius-sm);
+  transition: background 150ms;
+}
+
+aside.toc a:hover {
+  background: var(--brand-50);
+  color: var(--ink);
+}
+
+aside.toc a.active {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+aside.toc .toc-part {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-muted);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+main.content {
+  padding: var(--space-8) var(--space-10);
+  max-width: 880px;
+}
+
+main.content .eyebrow {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--brand-600);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+
+main.content h1 {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.8px;
+  line-height: 1.15;
+  margin-bottom: var(--space-2);
+}
+
+main.content h2 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  margin: var(--space-8) 0 var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--line);
+}
+
+main.content h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: var(--space-6) 0 var(--space-2);
+}
+
+main.content h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: var(--space-5) 0 var(--space-2);
+}
+
+main.content p,
+main.content li {
+  font-size: 16px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin-bottom: var(--space-3);
+}
+
+main.content strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+main.content em {
+  font-style: italic;
+}
+
+main.content ul,
+main.content ol {
+  padding-left: var(--space-5);
+  margin-bottom: var(--space-4);
+}
+
+main.content code {
+  background: var(--brand-50);
+  color: var(--brand-700);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 14px;
+}
+
+main.content pre {
+  background: var(--ink);
+  color: #E5E5E5;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  margin-bottom: var(--space-4);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+main.content pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+main.content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--space-4);
+  font-size: 14px;
+}
+
+main.content th {
+  text-align: left;
+  background: var(--brand-50);
+  color: var(--ink);
+  font-weight: 500;
+  padding: var(--space-3);
+  border-bottom: 2px solid var(--line);
+}
+
+main.content td {
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  vertical-align: top;
+}
+
+main.content blockquote {
+  border-left: 3px solid var(--brand-500);
+  padding-left: var(--space-4);
+  font-style: italic;
+  color: var(--ink-soft);
+  margin-bottom: var(--space-4);
+}
+
+main.content hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: var(--space-6) 0;
+}
+
+main.content a {
+  color: var(--brand-600);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 150ms;
+}
+
+main.content a:hover {
+  border-bottom-color: var(--brand-600);
+}
+
+/* Hero block for landing page */
+.hero {
+  padding: var(--space-10) 0 var(--space-8);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--space-8);
+}
+
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.swatch {
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--line);
+}
+
+.swatch .swatch-color {
+  height: 80px;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-2);
+}
+
+.swatch .swatch-name {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.swatch .swatch-hex {
+  color: var(--ink-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+}
+
+/* Mascot display card */
+.mascot-preview {
+  display: inline-block;
+  padding: var(--space-6);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  margin: var(--space-4) 0;
+}
+
+.bud-mascot {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: var(--brand-400);
+  position: relative;
+  box-shadow: 0 12px 24px rgba(10,10,10,0.12);
+  margin: 0 auto;
+}
+
+.bud-mascot::before,
+.bud-mascot::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: var(--ink);
+  border-radius: 50%;
+  top: 54px;
+}
+
+.bud-mascot::before { left: 38px; }
+.bud-mascot::after  { right: 38px; }
+
+.bud-mascot .antenna {
+  position: absolute;
+  width: 6px;
+  height: 18px;
+  background: var(--brand-600);
+  top: -10px;
+  left: 67px;
+  border-radius: 3px;
+}
+
+.bud-mascot .antenna-tip {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--brand-500);
+  top: -18px;
+  left: 64px;
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--brand-500);
+}
+
+/* Verdict pill demo */
+.tone-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  border-width: 1px;
+  border-style: solid;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  margin-right: var(--space-2);
+}
+
+.tone-pill .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.tone-pill.compatible { background: rgba(31, 171, 92, 0.1);  border-color: rgba(31, 171, 92, 0.25);  color: var(--status-ok); }
+.tone-pill.compatible .dot { background: var(--status-ok); }
+
+.tone-pill.caution    { background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.25); color: var(--status-warn); }
+.tone-pill.caution .dot { background: var(--status-warn); }
+
+.tone-pill.avoid      { background: rgba(220, 38, 38, 0.1);  border-color: rgba(220, 38, 38, 0.25);  color: var(--status-danger); }
+.tone-pill.avoid .dot { background: var(--status-danger); }
+
+.callout {
+  background: var(--brand-50);
+  border-left: 4px solid var(--brand-500);
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  margin: var(--space-4) 0;
+}
+
+.callout.warning {
+  background: rgba(245, 158, 11, 0.1);
+  border-left-color: var(--status-warn);
+}
+
+.callout.danger {
+  background: rgba(220, 38, 38, 0.08);
+  border-left-color: var(--status-danger);
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--line);
+  padding-top: var(--space-5);
+  margin-top: var(--space-8);
+  font-size: 13px;
+  color: var(--ink-muted);
+}
