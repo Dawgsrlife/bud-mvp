@@ -1,4 +1,4 @@
-// HomeScreen - placeholder. Slice 3 makes this the camera screen.
+// HomeScreen - the landing screen after onboarding. Now triggers the scanner.
 
 import { StyleSheet, Text, View } from 'react-native';
 import { tokens } from '../../../../core/theme/tokens';
@@ -7,27 +7,28 @@ import { Button } from '../../../../shared/widgets/button';
 
 interface HomeScreenProps {
   allergenCount: number;
+  onScan: () => void;
   onResetProfile: () => void;
 }
 
-export function HomeScreen({ allergenCount, onResetProfile }: HomeScreenProps) {
+export function HomeScreen({ allergenCount, onScan, onResetProfile }: HomeScreenProps) {
   return (
     <View style={styles.container}>
       <View style={styles.hero}>
         <BuddyMascot size={130} mood="idle" />
         <View style={styles.text}>
           <Text style={[styles.eyebrow, styles.center]}>BUD</Text>
-          <Text style={[styles.headline, styles.center]}>Ready to scan.</Text>
+          <Text style={[styles.headline, styles.center]}>Ready when you are.</Text>
           <Text style={[styles.subhead, styles.center]}>
             {allergenCount === 0
               ? "I'm not watching for anything yet. Add allergens to your profile."
-              : `Watching for ${allergenCount} ${allergenCount === 1 ? 'allergen' : 'allergens'}.`}
+              : `Watching ${allergenCount} ${allergenCount === 1 ? 'allergen' : 'allergens'} in every scan.`}
           </Text>
         </View>
       </View>
 
       <View style={styles.footer}>
-        <Button label="Camera coming next" onPress={() => {}} disabled fullWidth size="lg" />
+        <Button label="Scan a product" onPress={onScan} fullWidth size="lg" />
         <Button label="Reset profile" onPress={onResetProfile} variant="ghost" size="sm" />
       </View>
     </View>
