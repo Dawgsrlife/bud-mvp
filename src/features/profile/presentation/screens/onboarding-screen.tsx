@@ -62,10 +62,10 @@ function WelcomeStep({ onNext }: { onNext: () => void }) {
       <View style={styles.welcomeHero}>
         <BuddyMascot size={140} mood="idle" />
         <View style={styles.welcomeText}>
-          <Text style={[styles.eyebrow, styles.center]}>BUD</Text>
-          <Text style={[styles.headline, styles.center]}>Hi. I'm Bud.</Text>
+          <Text style={[styles.eyebrow, styles.center]}>Bud</Text>
+          <Text style={[styles.headline, styles.heroSerif, styles.center]}>Hi. I'm Bud.</Text>
           <Text style={[styles.subhead, styles.center]}>
-            Point your phone at a grocery product. I'll tell you if it's safe for you.
+            A second opinion at the shelf. Point at any product and I'll tell you if it's safe for you.
           </Text>
         </View>
       </View>
@@ -232,12 +232,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   eyebrow: {
-    fontSize: tokens.type.sizes.sm,
-    fontWeight: tokens.type.weights.medium,
-    color: tokens.color.brand[600],
-    letterSpacing: 1.2,
-    textTransform: 'uppercase',
+    fontSize: tokens.type.sizes.lg,
+    fontWeight: tokens.type.weights.bold,
+    color: tokens.color.brand[500],
     fontFamily: tokens.type.family,
+  },
+  // Hero serif: matches the bud.quest waitlist email + Amir's card direction.
+  heroSerif: {
+    fontFamily: tokens.type.familySerif,
+    fontStyle: 'italic',
+    fontWeight: '700',
   },
   headline: {
     fontSize: tokens.type.sizes['2xl'],

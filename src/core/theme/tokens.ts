@@ -9,13 +9,19 @@
 //
 // See docs/adr/0003-design-system-and-animation.md and docs/design/brand-book-v1.md.
 
-import { colorVariant } from './tokens-variants/v1-emerald';
+import { colorVariant } from './tokens-variants/v5-amir-website';
 
 export const tokens = {
   color: colorVariant,
 
   type: {
+    // Body family: Inter (sans, free, ships via @expo-google-fonts/inter)
     family: 'Inter',
+    // Hero family: serif italic for "Bud" wordmark + hero moments. Pairs with Amir's
+    // website + email aesthetic. Playfair Display Italic 700 is the closest free pairing.
+    // On RN, this requires @expo-google-fonts/playfair-display; web preview uses
+    // Playfair Display via Google Fonts CDN.
+    familySerif: 'PlayfairDisplay-BoldItalic, Georgia, serif',
     sizes: {
       xs: 12,
       sm: 14,
