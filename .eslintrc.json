@@ -1,0 +1,44 @@
+{
+  "root": true,
+  "extends": [
+    "expo",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "boundaries"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+
+    "boundaries/element-types": ["error", {
+      "default": "disallow",
+      "rules": [
+        { "from": "core",         "allow": ["core"] },
+        { "from": "shared",       "allow": ["core", "shared"] },
+        { "from": "domain",       "allow": ["core"] },
+        { "from": "data",         "allow": ["core", "domain"] },
+        { "from": "presentation", "allow": ["core", "shared", "domain"] },
+        { "from": "app",          "allow": ["core", "shared", "domain", "presentation"] }
+      ]
+    }],
+
+    "boundaries/no-private": ["error", { "allowUncles": false }]
+  },
+  "settings": {
+    "boundaries/elements": [
+      { "type": "core",         "pattern": "src/core/**" },
+      { "type": "shared",       "pattern": "src/shared/**" },
+      { "type": "domain",       "pattern": "src/features/*/domain/**" },
+      { "type": "data",         "pattern": "src/features/*/data/**" },
+      { "type": "presentation", "pattern": "src/features/*/presentation/**" },
+      { "type": "app",          "pattern": "App.tsx" },
+      { "type": "app",          "pattern": "index.ts" }
+    ],
+    "boundaries/ignore": ["**/*.test.ts", "**/*.test.tsx", "**/node_modules/**"]
+  }
+}
