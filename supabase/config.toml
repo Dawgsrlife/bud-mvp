@@ -1,25 +1,6 @@
 # Supabase project config for BUD
-# Project ref: rtmeutqbxswjfhjdlnop (us-east-1)
-
-[project]
-id = "rtmeutqbxswjfhjdlnop"
-
-[api]
-enabled = true
-port = 54321
-schemas = ["public", "graphql_public"]
-extra_search_path = ["public", "extensions"]
-max_rows = 1000
-
-[db]
-port = 54322
-shadow_port = 54320
-major_version = 15
-
-[edge_runtime]
-enabled = true
-ip_version = "ipv4"
-inspector_port = 8083
+# Minimal valid format for Supabase CLI 2.98+
+project_id = "bud-mvp"
 
 [functions.verdict]
 verify_jwt = false
