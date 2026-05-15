@@ -1,58 +1,75 @@
 // BUD MVP. App entry.
-// Real screens live in src/features/<feature>/presentation/screens/.
-// This file is the navigation root. For MVP day 1, we render a placeholder
-// LaunchScreen that uses design tokens directly so we can confirm the theme
-// is wired correctly. Routing migrates to expo-router once Phase 1 features
-// start landing.
+// Root component. Decides between onboarding + home based on saved profile.
 
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, SafeAreaView, StyleSheet, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { container } from './src/core/di/container';
 import { tokens } from './src/core/theme/tokens';
+import { isOk } from './src/core/errors/result';
+import { OnboardingScreen } from './src/features/profile/presentation/screens/onboarding-screen';
+import { HomeScreen } from './src/features/scanner/presentation/screens/home-screen';
+
+type AppState =
+  | { kind: 'loading' }
+  | { kind: 'onboarding' }
+  | { kind: 'home'; allergenCount: number };
 
 export default function App() {
+  const [state, setState] = useState<AppState>({ kind: 'loading' });
+
+  const loadProfile = async () => {
+    const loadUseCase = container.loadProfileUseCase();
+    const result = await loadUseCase.execute();
+    if (isOk(result) && result.value.allergens.length > 0) {
+      setState({ kind: 'home', allergenCount: result.value.allergens.length });
+    } else {
+      setState({ kind: 'onboarding' });
+    }
+  };
+
+  useEffect(() => {
+    void loadProfile();
+  }, []);
+
   return (
-    <SafeAreaView style={styles.safe}>
-      <StatusBar style="dark" />
-      <View style={styles.container}>
-        <Text style={styles.eyebrow}>BUD</Text>
-        <Text style={styles.headline}>The buddy you always needed.</Text>
-        <Text style={styles.subhead}>
-          MVP scaffold ready. Day 1: camera + OCR pipeline spike.
-        </Text>
-      </View>
-    </SafeAreaView>
+    <GestureHandlerRootView style={styles.root}>
+      <SafeAreaProvider>
+        <SafeAreaView style={styles.safe}>
+          <StatusBar style="dark" />
+          {state.kind === 'loading' && (
+            <View style={styles.center}>
+              <ActivityIndicator color={tokens.color.brand[500]} />
+            </View>
+          )}
+          {state.kind === 'onboarding' && (
+            <OnboardingScreen onDone={() => void loadProfile()} />
+          )}
+          {state.kind === 'home' && (
+            <HomeScreen
+              allergenCount={state.allergenCount}
+              onResetProfile={() => setState({ kind: 'onboarding' })}
+            />
+          )}
+        </SafeAreaView>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
   safe: {
     flex: 1,
     backgroundColor: tokens.color.bg,
   },
-  container: {
+  center: {
     flex: 1,
-    paddingHorizontal: tokens.space[5],
+    alignItems: 'center',
     justifyContent: 'center',
-    gap: tokens.space[3],
-  },
-  eyebrow: {
-    fontSize: tokens.type.sizes.sm,
-    fontWeight: tokens.type.weights.medium,
-    color: tokens.color.brand[600],
-    letterSpacing: 1,
-  },
-  headline: {
-    fontSize: tokens.type.sizes['2xl'],
-    fontWeight: tokens.type.weights.bold,
-    color: tokens.color.ink,
-    lineHeight: tokens.type.sizes['2xl'] * tokens.type.lineHeight.tight,
-    letterSpacing: tokens.type.letterSpacing.tight,
-  },
-  subhead: {
-    fontSize: tokens.type.sizes.base,
-    fontWeight: tokens.type.weights.regular,
-    color: tokens.color.inkSoft,
-    lineHeight: tokens.type.sizes.base * tokens.type.lineHeight.normal,
   },
 });
-
